@@ -23,22 +23,19 @@ public class Bau {
         {
              for (int y=0; y<map.getHeight(); y++)
              {
+            	 bau[x][y] = null;
                  int tileID = map.getTileId(x, y, 0);
                  String value = map.getTileProperty(tileID, "bau", "false");
                  if ("true".equals(value)){
-                	 bau[x][y] = true;
-                	 bau[x][y+1] = true;
-                	 bau[x][y-1] = true;
-                	 bau[x+1][y] = true;
-                	 bau[x+1][y+1] = true;
-                	 bau[x+1][y-1] = true;
-                	 bau[x-1][y] = true;
-                	 bau[x-1][y+1] = true;
-                	 bau[x-1][y-1] = true;
-                 }
-                 else{
-                	 if (bau[x][y] == null)
-                		 bau[x][y] = false;
+                	 bau[x][y] = false;
+                	 bau[x][y+1] = false;
+                	 bau[x][y-1] = false;
+                	 bau[x+1][y] = false;
+                	 bau[x+1][y+1] = false;
+                	 bau[x+1][y-1] = false;
+                	 bau[x-1][y] = false;
+                	 bau[x-1][y+1] = false;
+                	 bau[x-1][y-1] = false;
                  }
              }
          }

@@ -10,6 +10,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import Classes.Humano.Engenheiro;
 import Main.Classe;
+import View.Items.Bau;
 import View.Items.Bloqueado;
 import View.Items.Mapa;
 
@@ -18,6 +19,7 @@ public class MapaState extends BasicGameState {
 	// Mapa
 	private Mapa map;
 	private Bloqueado bloqueado;
+	private Bau bau;
 
 	// Personagem
 	private Classe<?> classe;
@@ -29,6 +31,7 @@ public class MapaState extends BasicGameState {
 			throws SlickException {
 		map = new Mapa();
 		bloqueado = new Bloqueado(map);
+		bau = new Bau(map);
 
 		classe = new Engenheiro();
 		sprite = classe.getAnimacao().Right();
@@ -75,8 +78,21 @@ public class MapaState extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
+		// Renderiza o mapa
 		map.getMap().render(0, 0);
+		
+		// Desenha o personagem na tela
 		sprite.draw((int)x, (int)y);
+		
+		/* Passou por cima de um baú sinaliza uma mensagem 
+		se o baú está aberto ou fechado */
+		Boolean temBau = bau.temBau(x, y);
+		if (temBau != null){
+			if (!temBau)
+				g.drawString("Baú fechado! [PRESS A]", x - 100, y + 20);
+			else if (temBau)
+				g.drawString("Baú aberto!", x - 100, y + 20);
+		}
 	}
 
 	@Override
