@@ -8,6 +8,9 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class LutaState extends BasicGameState {
 
+	public LutaState(int state){
+		
+	}
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {

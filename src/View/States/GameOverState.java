@@ -7,6 +7,10 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class GameOverState extends BasicGameState {
+	
+	public GameOverState(int state){
+		
+	}
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1)
@@ -28,6 +32,6 @@ public class GameOverState extends BasicGameState {
 
 	@Override
 	public int getID() {
-		return 0;
+		return 2;
 	}
 }
