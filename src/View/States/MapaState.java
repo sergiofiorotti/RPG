@@ -9,10 +9,10 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
+import org.newdawn.slick.state.transition.RotateTransition;
 
 import Main.Classe;
-import View.Items.Bloqueado;
-import View.Items.Mapa;
+import View.Items.*;
 import View.States.PersonagemState;
 import org.newdawn.slick.*;
 
@@ -21,9 +21,10 @@ public class MapaState extends BasicGameState {
 	// Mapa
 	private Mapa map;
 	private Bloqueado bloqueado;
-	private static Classe<?> classe;
+	private Bau bau;
 
 	// Personagem
+	private Classe<?> classe;
 	private Animation sprite;
 	private float x = 20f, y = 20f;
 	private Image alien;
@@ -36,16 +37,14 @@ public class MapaState extends BasicGameState {
 			throws SlickException {
 		map = new Mapa();
 		bloqueado = new Bloqueado(map);
-		alien= new Image("imagens/personagens/Soldier.png");
+		bau = new Bau(map);
 		
-
+		alien= new Image("imagens/personagens/Soldier.png");
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int i)
 			throws SlickException {
-		
-		
 		Input input = gc.getInput();
 		if(input.isKeyDown(Input.KEY_ESCAPE)){
 			sbg.enterState(4, new FadeOutTransition(), new FadeInTransition());
@@ -82,21 +81,38 @@ public class MapaState extends BasicGameState {
 				x += i * 0.1f;
 			}
 		}
+		
+		if (x > 190 && x < 210  && y > 190 && y < 210)
+			sbg.enterState(3, new FadeOutTransition(), new RotateTransition());
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		
-		map.getMap().render(0, 0);
-		
-		g.drawImage(alien, 200, 200);
-		
 		if (classe != null)
 			sprite.draw((int)x, (int)y);
 		else{
 			classe = PersonagemState.getClasse();
 			sprite = classe.getAnimacao().Right();
+		}
+		
+		// Renderiza o mapa
+		map.getMap().render(0, 0);
+		
+		// Desenha o personagem na tela
+		sprite.draw((int)x, (int)y);
+		g.drawImage(alien, 200, 200);
+		
+		
+		/* Passou por cima de um baú sinaliza uma mensagem 
+		se o baú está aberto ou fechado */
+		Boolean temBau = bau.temBau(x, y);
+		if (temBau != null){
+			if (!temBau)
+				g.drawString("Baú fechado! [PRESS A]", x - 100, y + 20);
+			else if (temBau)
+				g.drawString("Baú aberto!", x - 100, y + 20);
 		}
 	}
 
