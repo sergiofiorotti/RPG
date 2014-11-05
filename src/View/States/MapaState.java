@@ -7,40 +7,46 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 
-import Classes.Humano.Engenheiro;
 import Main.Classe;
-import View.Items.Bau;
 import View.Items.Bloqueado;
 import View.Items.Mapa;
+import View.States.PersonagemState;
 
 public class MapaState extends BasicGameState {
 
 	// Mapa
 	private Mapa map;
 	private Bloqueado bloqueado;
-	private Bau bau;
+	private static Classe<?> classe;
 
 	// Personagem
-	private Classe<?> classe;
 	private Animation sprite;
 	private float x = 20f, y = 20f;
+	
+	public MapaState(int state){
+		}
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
 		map = new Mapa();
 		bloqueado = new Bloqueado(map);
-		bau = new Bau(map);
-
-		classe = new Engenheiro();
-		sprite = classe.getAnimacao().Right();
+		
+		
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int i)
 			throws SlickException {
+		
+		
 		Input input = gc.getInput();
+		if(input.isKeyDown(Input.KEY_ESCAPE)){
+			sbg.enterState(4, new FadeOutTransition(), new FadeInTransition());
+		}
 		if(input.isKeyDown(Input.KEY_UP))
 		{
 			sprite = classe.getAnimacao().Up();
@@ -78,20 +84,14 @@ public class MapaState extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
-		// Renderiza o mapa
+		
 		map.getMap().render(0, 0);
 		
-		// Desenha o personagem na tela
-		sprite.draw((int)x, (int)y);
-		
-		/* Passou por cima de um baú sinaliza uma mensagem 
-		se o baú está aberto ou fechado */
-		Boolean temBau = bau.temBau(x, y);
-		if (temBau != null){
-			if (!temBau)
-				g.drawString("Baú fechado! [PRESS A]", x - 100, y + 20);
-			else if (temBau)
-				g.drawString("Baú aberto!", x - 100, y + 20);
+		if (classe != null)
+			sprite.draw((int)x, (int)y);
+		else{
+			classe = PersonagemState.getClasse();
+			sprite = classe.getAnimacao().Right();
 		}
 	}
 

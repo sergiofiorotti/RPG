@@ -10,14 +10,15 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
-public class MenuState extends BasicGameState {
+public class MenuInGameState extends BasicGameState {
 
 	
 	private Image imagemBackground;
 	private Image jogar;
 	private Image sair;
+	private Image itens;
 	
-	public MenuState(int state){
+	public MenuInGameState(int state){
 			
 		}
 	
@@ -25,6 +26,7 @@ public class MenuState extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		imagemBackground = new Image("imagens/menuBackground.png");
 		jogar = new Image("imagens/jogar.png");
+		itens = new Image("imagens/itens.png");
 		sair = new Image("imagens/sair.png");
 	}
 
@@ -32,7 +34,8 @@ public class MenuState extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException{
 		g.drawImage(imagemBackground, 0, 0);
 		g.drawImage(jogar, 350, 100);
-		g.drawImage(sair, 350, 200);
+		g.drawImage(itens, 350, 200);
+		g.drawImage(sair, 350, 300);
 	}
 
 	@Override
@@ -43,9 +46,13 @@ public class MenuState extends BasicGameState {
 		
 		if((xpos>350 && xpos<450) && (ypos>100 && ypos<150)){
 			if(input.isMouseButtonDown(0))
-			sbg.enterState(5, new FadeOutTransition(), new FadeInTransition());
+			sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
 		}
 		if((xpos>350 && xpos<450) && (ypos>200 && ypos<250)){
+			if(input.isMouseButtonDown(0))
+			sbg.enterState(0, new FadeOutTransition(), new FadeInTransition());
+		}
+		if((xpos>350 && xpos<450) && (ypos>300 && ypos<350)){
 			if(input.isMouseButtonDown(0)){
 				gc.exit();
 			}
@@ -54,7 +61,7 @@ public class MenuState extends BasicGameState {
 
 	@Override
 	public int getID() {
-		return 0;
+		return 4;
 	}
 }
 

@@ -10,28 +10,49 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Jogo extends StateBasedGame {
 
-	public Jogo(String title) {
-		super(title);
+	public static final String gameName = "Galaxy Destiny";
+	
+	public static final int menuState = 0;
+	public static final int mapaState = 1;
+	public static final int gameOverState = 2;
+	public static final int lutaState = 3;
+	public static final int menuInGameState = 4;
+	public static final int personagemState = 5;
+	
+	
+	public Jogo(String gameName){
+		super(gameName);
+		this.addState(new MenuState(menuState));
+		this.addState(new GameOverState(gameOverState));
+		this.addState(new LutaState(lutaState));
+		this.addState(new MenuInGameState(menuInGameState));
+		this.addState(new PersonagemState(personagemState));
+		this.addState(new MapaState(mapaState));
+	}
+	
+	public void initStatesList(GameContainer gc) throws SlickException {
+		this.getState(menuState).init(gc, this);
+		this.getState(mapaState).init(gc, this);
+		this.getState(lutaState).init(gc, this);
+		this.getState(gameOverState).init(gc, this);
+		this.getState(menuInGameState).init(gc, this);
+		this.getState(personagemState).init(gc, this);
+		this.enterState(0);
 	}
 	
 	public static void main(String[] args)
 	{
+		AppGameContainer appgc;
 		try
 		{
-			AppGameContainer app = new AppGameContainer(new Jogo("Galaxy Destiny"));
-			app.setDisplayMode(800, 600, false);
-			app.start();
+			appgc= new AppGameContainer(new Jogo(gameName));
+			appgc.setDisplayMode(800, 600, false);
+			appgc.start();
 		}
 		catch (SlickException ex)
 		{
 			Logger.getLogger(Jogo.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
-
-	public void initStatesList(GameContainer arg0) throws SlickException {
-		this.addState(new MenuState());
-		this.addState(new MapaState());
-		this.addState(new LutaState());
-		this.addState(new GameOverState());
-	}
 }
+
