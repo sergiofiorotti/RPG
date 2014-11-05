@@ -19,10 +19,8 @@ public class Bloqueado {
 	
 	public void BloquearVizinho(TiledMap map){
 		Boolean[][] aux = new Boolean[map.getWidth()][map.getHeight()];
-		for (int x=0; x<map.getWidth(); x++)
-        {
-             for (int y=0; y<map.getHeight(); y++)
-             {
+		for (int x=0; x<map.getWidth(); x++){
+             for (int y=0; y<map.getHeight(); y++){
             	 aux[x][y] = false;
             	 if (x < map.getWidth() - 1 && y < map.getHeight() - 1){
             		 if (bloqueado[x][y] || bloqueado[x][y+1] || 
@@ -32,10 +30,8 @@ public class Bloqueado {
             	 }
              }
         }
-		for (int x=0; x<map.getWidth(); x++)
-        {
-             for (int y=0; y<map.getHeight(); y++)
-             {
+		for (int x=0; x<map.getWidth(); x++){
+             for (int y=0; y<map.getHeight(); y++){
             	 if (aux[x][y] == true)
             		 bloqueado[x][y] = true;
              }
@@ -44,10 +40,8 @@ public class Bloqueado {
 	
 	public void BloquearMapa(TiledMap map){
 		bloqueado = new Boolean[map.getWidth()][map.getHeight()];
-        for (int x=0; x<map.getWidth(); x++)
-        {
-             for (int y=0; y<map.getHeight(); y++)
-             {
+        for (int x=0; x<map.getWidth(); x++){
+             for (int y=0; y<map.getHeight(); y++){
             	 bloqueado[x][y] = false;
                  int tileID = map.getTileId(x, y, 0);
                  String value = map.getTileProperty(tileID, "blocked", "false");

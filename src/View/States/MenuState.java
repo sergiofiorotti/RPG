@@ -19,7 +19,7 @@ public class MenuState extends BasicGameState {
 	
 	public MenuState(int state){
 			
-		}
+	}
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{

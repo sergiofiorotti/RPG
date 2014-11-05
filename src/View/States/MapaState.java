@@ -35,7 +35,7 @@ public class MapaState extends BasicGameState {
 		map = new Mapa();
 		bloqueado = new Bloqueado(map);
 		
-		
+
 	}
 
 	@Override
