@@ -12,7 +12,7 @@ import Main.Classe;
 final public class Soldier extends Classe<ISoldier>{
 
 	public Soldier() throws SlickException{
-		super(150, 50, new Image("imagens/personagens/Chrono.png"));
+		super(150, 50, new Image("imagens/personagens/Soldier.png"));
 		
 		armas = new ISoldier[5];
 		armas[0] = new Espada();

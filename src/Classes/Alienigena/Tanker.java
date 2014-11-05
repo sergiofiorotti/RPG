@@ -12,7 +12,7 @@ import Main.Classe;
 final public class Tanker extends Classe<ITanker>{
 
 	public Tanker() throws SlickException{
-		super(200, 60, new Image("imagens/personagens/Chrono.png"));
+		super(200, 60, new Image("imagens/personagens/Tanker.png"));
 		
 		armas = new ITanker[5];
 		armas[0] = new Faca();

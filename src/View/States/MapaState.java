@@ -14,6 +14,7 @@ import Main.Classe;
 import View.Items.Bloqueado;
 import View.Items.Mapa;
 import View.States.PersonagemState;
+import org.newdawn.slick.*;
 
 public class MapaState extends BasicGameState {
 
@@ -25,6 +26,7 @@ public class MapaState extends BasicGameState {
 	// Personagem
 	private Animation sprite;
 	private float x = 20f, y = 20f;
+	private Image alien;
 	
 	public MapaState(int state){
 		}
@@ -34,6 +36,7 @@ public class MapaState extends BasicGameState {
 			throws SlickException {
 		map = new Mapa();
 		bloqueado = new Bloqueado(map);
+		alien= new Image("imagens/personagens/Soldier.png");
 		
 
 	}
@@ -86,6 +89,8 @@ public class MapaState extends BasicGameState {
 			throws SlickException {
 		
 		map.getMap().render(0, 0);
+		
+		g.drawImage(alien, 200, 200);
 		
 		if (classe != null)
 			sprite.draw((int)x, (int)y);
