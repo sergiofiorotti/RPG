@@ -12,7 +12,7 @@ import Main.Classe;
 final public class Espiao extends Classe<IEspiao>{
 
 	public Espiao() throws SlickException{
-		super(100, 80, new Image("imagens/personagens/Chrono.png"));
+		super(100, 80, new Image("imagens/personagens/chrono.png"));
 		
 		armas = new IEspiao[5];
 		armas[0] = new Faca();
