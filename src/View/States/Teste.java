@@ -33,7 +33,7 @@ public class Teste extends BasicGame{
 	public void init(GameContainer gc) throws SlickException {
 		map = new Mapa();
 		bloqueado = new Bloqueado(map);
-		bau = new Bau(map);
+//		bau = new Bau(map);
 		
 		classe = new Engenheiro();
 		sprite = classe.getAnimacao().Right();

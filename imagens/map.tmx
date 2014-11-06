@@ -21,7 +21,7 @@
  </tileset>
  <layer name="Camada" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3VMQ4AIAhDUdD739ndQTAhKdYOb/8YCW5m/pixQfec2iLd+yobZ/O+7u/H8P9uGhFtUR+qKduI7hJhkLlVzH6fX6STin3UTosIkwXJ40udwBIAAA==
+   H4sIAAAAAAAAA+3SIRIAIAzEwCv/fzQeQYuAAyZifURCUjymDdw9s7bM7X2nG+n7+7+VRkdb1udqqja6uwAAAABglw6D8GLkwBIAAA==
   </data>
  </layer>
 </map>
