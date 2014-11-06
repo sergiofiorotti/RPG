@@ -18,6 +18,7 @@ final public class Espiao extends Classe<IEspiao>{
 		armas[0] = new Faca();
 		armas[1] = new Pistola();
 		armas[2] = new Fuzil();
+		imagem = new Image("imagens/personagens/ChronoG.png");
 	}
 	
 	public IEspiao[] armas;

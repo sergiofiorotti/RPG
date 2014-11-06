@@ -18,6 +18,8 @@ final public class Soldier extends Classe<ISoldier>{
 		armas[0] = new Espada();
 		armas[1] = new Metralhadora();
 		armas[2] = new Missel();
+		
+		imagem = new Image("imagens/personagens/SoldierG");
 	}
 	
 	public ISoldier[] armas;

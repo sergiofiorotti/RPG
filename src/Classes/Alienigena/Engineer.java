@@ -20,6 +20,8 @@ final public class Engineer extends Classe<IEngineer>{
 		armas[1] = new Bazuca();
 		armas[2] = new C4();
 		armas[3] = new Mecha();
+		
+		imagem = new Image("imagens/personagens/EngineerG");
 	}
 	
 	public IEngineer[] armas;

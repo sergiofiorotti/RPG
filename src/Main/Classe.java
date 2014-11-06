@@ -7,6 +7,7 @@ import Armas.Arma;
 
 public abstract class Classe<T>{
 	
+	
 	public Classe(int hp, int forca, Image personagem)
 	{
 		this.hp = hp;
@@ -19,6 +20,8 @@ public abstract class Classe<T>{
 	protected int forca;
 	
 	protected Animacao animacao;
+	
+	protected Image imagem;
 	
 	public Animacao getAnimacao(){
 		return animacao;
@@ -46,5 +49,9 @@ public abstract class Classe<T>{
 		if (arma.attack() > 0)
 			return arma.attack() + forca;
 		return 0;
+	}
+	
+	public Image getImagem(){
+		return imagem;
 	}
 }

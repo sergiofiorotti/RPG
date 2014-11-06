@@ -110,9 +110,9 @@ public class MapaState extends BasicGameState {
 		Boolean temBau = bau.temBau(x, y);
 		if (temBau != null){
 			if (!temBau)
-				g.drawString("BaÃº fechado! [PRESS A]", x - 100, y + 20);
+				g.drawString("Baú fechado! [PRESS A]", x - 100, y + 20);
 			else if (temBau)
-				g.drawString("BaÃº aberto!", x - 100, y + 20);
+				g.drawString("Baú aberto!", x - 100, y + 20);
 		}
 	}
 
