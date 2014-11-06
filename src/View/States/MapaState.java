@@ -3,6 +3,7 @@ package View.States;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
@@ -10,11 +11,9 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.state.transition.RotateTransition;
-
 import Main.Classe;
 import View.Items.*;
 import View.States.PersonagemState;
-import org.newdawn.slick.*;
 
 public class MapaState extends BasicGameState {
 
@@ -22,7 +21,7 @@ public class MapaState extends BasicGameState {
 	private Mapa map;
 	private Bloqueado bloqueado;
 	private Bau bau;
-
+	
 	// Personagem
 	private Classe<?> classe;
 	private Animation sprite;
@@ -30,16 +29,16 @@ public class MapaState extends BasicGameState {
 	private Image alien;
 	
 	public MapaState(int state){
-		}
+	}
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
 		map = new Mapa();
 		bloqueado = new Bloqueado(map);
-		bau = new Bau(map);
+		bau = new Bau(map, 2, bloqueado.getBloqueado());
 		
-		alien= new Image("imagens/personagens/Soldier.png");
+		alien = new Image("imagens/personagens/Soldier.png");
 	}
 
 	@Override
@@ -113,7 +112,13 @@ public class MapaState extends BasicGameState {
 				g.drawString("Baú fechado! [PRESS A]", x - 100, y + 20);
 			else if (temBau)
 				g.drawString("Baú aberto!", x - 100, y + 20);
+				g.drawString("BaÃº aberto!", x, y + 20);
 		}
+		
+		for(int i=0; i < bau.getQuantidade(); i++){
+			g.drawImage(bau.getImage(), bau.getPosicao()[i][0], bau.getPosicao()[i][1]);
+		}
+		
 	}
 
 	@Override
