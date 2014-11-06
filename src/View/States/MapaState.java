@@ -115,7 +115,6 @@ public class MapaState extends BasicGameState {
 			if (!temBau)
 				g.drawString("Baú fechado! [PRESS A]", x - 100, y + 20);
 			else if (temBau)
-				g.drawString("Baú aberto!", x - 100, y + 20);
 				g.drawString("BaÃº aberto!", x, y + 20);
 		}
 	}
