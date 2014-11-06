@@ -1,4 +1,4 @@
 package Interfaces;
 
-public interface IAlienigena {
+public interface IAlienigena extends IClasse {
 }

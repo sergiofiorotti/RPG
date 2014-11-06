@@ -1,5 +1,5 @@
 package Interfaces;
 
-public interface IHumano{
-
+public interface IHumano extends IClasse{
+	
 }
