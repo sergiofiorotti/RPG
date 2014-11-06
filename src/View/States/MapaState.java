@@ -103,6 +103,10 @@ public class MapaState extends BasicGameState {
 		sprite.draw((int)x, (int)y);
 		g.drawImage(alien, 200, 200);
 		
+		// Desenha os baús
+		for(int i=0; i < bau.getQuantidade(); i++){
+			g.drawImage(bau.getImage(), bau.getPosicao()[i][0], bau.getPosicao()[i][1]);
+		}
 		
 		/* Passou por cima de um baú sinaliza uma mensagem 
 		se o baú está aberto ou fechado */
@@ -114,11 +118,6 @@ public class MapaState extends BasicGameState {
 				g.drawString("Ba� aberto!", x - 100, y + 20);
 				g.drawString("Baú aberto!", x, y + 20);
 		}
-		
-		for(int i=0; i < bau.getQuantidade(); i++){
-			g.drawImage(bau.getImage(), bau.getPosicao()[i][0], bau.getPosicao()[i][1]);
-		}
-		
 	}
 
 	@Override
