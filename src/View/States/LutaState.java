@@ -47,8 +47,8 @@ public class LutaState extends BasicGameState {
 		player = PersonagemState.getClasse();
 		g.drawImage(player.getImagem(), 50, 200);
 		
-		IClasse[] armas = (IClasse[]) player.getArmas();
-		int ataque = player.attack((Arma) armas[0]);
+		//IClasse[] armas = (IClasse[]) player.getArmas();
+		//int ataque = player.attack((Arma) armas[0]);
 		
 //		enemy.subHp(ataque);
 		
