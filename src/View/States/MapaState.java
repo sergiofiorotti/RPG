@@ -50,32 +50,28 @@ public class MapaState extends BasicGameState {
 		if(input.isKeyDown(Input.KEY_ESCAPE)){
 			sbg.enterState(4, new FadeOutTransition(), new FadeInTransition());
 		}
-		if(input.isKeyDown(Input.KEY_UP))
-		{
+		if(input.isKeyDown(Input.KEY_UP)){
 			sprite = classe.getAnimacao().Up();
 			if (y - (i * 0.1f) > 0 && !bloqueado.isBloqueado(x, y - (i * 0.1f))){
 				sprite.update(i);
 				y -= i * 0.1f;
 			}
 		}
-		else if(input.isKeyDown(Input.KEY_DOWN))
-		{
+		else if(input.isKeyDown(Input.KEY_DOWN)){
 			sprite = classe.getAnimacao().Down();
 			if (y + (i * 0.1f) < 600 && !bloqueado.isBloqueado(x, y + (i * 0.1f))){
 				sprite.update(i);
 				y += i * 0.1f;
 			}
 		}
-		else if(input.isKeyDown(Input.KEY_LEFT))
-		{
+		else if(input.isKeyDown(Input.KEY_LEFT)){
 			sprite = classe.getAnimacao().Left();
 			if (x - (i * 0.1f) > 0 && !bloqueado.isBloqueado(x - (i * 0.1f), y)){
 				sprite.update(i);
 				x -= i * 0.1f;
 			}
 		}
-		else if(input.isKeyDown(Input.KEY_RIGHT))
-		{
+		else if(input.isKeyDown(Input.KEY_RIGHT)){
 			sprite = classe.getAnimacao().Right();
 			if (x + (i * 0.1f) < 800 && !bloqueado.isBloqueado(x + (i * 0.1f), y)){
 				sprite.update(i);
@@ -83,10 +79,15 @@ public class MapaState extends BasicGameState {
 			}
 		}
 		
-		Boolean temInimigo = inimigo.temInimigo(x, y);
-		if (temInimigo){
+		if (inimigo.temInimigo(x, y)){
 			enemy = inimigo.getPosicao(x, y);
 			sbg.enterState(3, new FadeOutTransition(), new RotateTransition());
+		}
+		
+		if(input.isKeyDown(Input.KEY_A) && bau.temBau(x, y)){
+			if (!bau.getPosicao(x, y).bauAberto()){
+				bau.getPosicao(x, y).abrirBau();
+			}
 		}
 	}
 
@@ -112,17 +113,16 @@ public class MapaState extends BasicGameState {
 		
 		// Desenha os baús
 		for(int i=0; i < bau.getQuantidade(); i++){
-			g.drawImage(bau.getImage(), bau.getPosicao()[i][0], bau.getPosicao()[i][1]);
+			g.drawImage(bau.getImage(), bau.getPosicao()[i].getX(), bau.getPosicao()[i].getY());
 		}
 		
 		/* Passou por cima de um baú sinaliza uma mensagem 
 		se o baú está aberto ou fechado */
-		Boolean temBau = bau.temBau(x, y);
-		if (temBau != null){
-			if (!temBau)
+		if (bau.temBau(x, y)){
+			if (!bau.getPosicao(x, y).bauAberto())
 				g.drawString("Bau fechado! [PRESS A]", x - 100, y + 20);
-			else if (temBau)
-				g.drawString("Bau aberto!", x - 100, y + 20);
+			else
+				g.drawString("Bau aberto!", x - 50, y + 20);
 		}
 	}
 

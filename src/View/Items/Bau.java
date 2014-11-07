@@ -11,7 +11,7 @@ public class Bau {
 		image = new Image("imagens/bau.png");
 		
 		this.quantidade = quantidade;
-		posicao = new int[quantidade][2];
+		posicao = new BauModel[quantidade];
 		SortearBau(map, bloqueado);;
 		
 		bau = new Boolean[map.getWidth()][map.getHeight()];
@@ -21,7 +21,7 @@ public class Bau {
 	private Boolean[][] bau;
 	private Image image;
 	private int quantidade;
-	private int[][] posicao; 
+	private BauModel[] posicao; 
 	
 	public Boolean temBau(float x, float y){
 		int xBau = (int)x / Mapa.getSize();
@@ -43,32 +43,42 @@ public class Bau {
 		return quantidade;
 	}
 	
-	public int[][] getPosicao(){
+	public BauModel[] getPosicao(){
 		return posicao;
+	}
+	
+	public BauModel getPosicao(float xBau, float yBau){
+		for (int i=0; i < quantidade; i++){
+			if (posicao[i].getX() / Mapa.getSize() == (int)xBau / Mapa.getSize() && posicao[i].getY() / Mapa.getSize() == (int)yBau / Mapa.getSize()){
+				return posicao[i];
+			}
+		}
+		return null;
 	}
 	
 	public void BauMapa(TiledMap map){
         for (int x=0; x < map.getWidth(); x++){
              for (int y=0; y < map.getHeight(); y++){
-            	 bau[x][y] = null;
+            	 bau[x][y] = false;
             	 for(int i = 0; i < quantidade; i++){
-            		 if (posicao[i][0] == x * 20 && posicao[i][1] == y * 20){
-            			 bau[x][y] = false;
+            		 if (posicao[i].getX() == x * 20 && posicao[i].getY() == y * 20){
+            			 bau[x][y] = true;
             		 }
             	 }
              }
         }
 	}
 	
-	public int[][] SortearBau(TiledMap map, Boolean[][] bloqueado){
+	public BauModel[] SortearBau(TiledMap map, Boolean[][] bloqueado){
 		for	(int i = 0; i < quantidade; i++){
 			int x,y;
 			do{
 				x = new Random().nextInt(800) / Mapa.getSize();
 				y = new Random().nextInt(600) / Mapa.getSize();
 			}while(bloqueado[x][y]);
-			posicao[i][0] = x * Mapa.getSize();
-			posicao[i][1] = y * Mapa.getSize();
+			x *= Mapa.getSize();
+			y *= Mapa.getSize();
+			posicao[i] = new BauModel(x, y);
 		}
 		return posicao;
 	}
