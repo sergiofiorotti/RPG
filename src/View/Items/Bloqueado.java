@@ -17,8 +17,8 @@ public class Bloqueado {
 	}
 	
 	public Boolean isBloqueado(float x, float y){
-		int xBlock = (int)x / Mapa.size;
-        int yBlock = (int)y / Mapa.size;
+		int xBlock = (int)x / Mapa.getSize();
+        int yBlock = (int)y / Mapa.getSize();
         return bloqueado[xBlock][yBlock];
 	}
 	

@@ -21,7 +21,7 @@ final public class Engineer extends Classe<IEngineer>{
 		armas[2] = new C4();
 		armas[3] = new Mecha();
 		
-		imagem = new Image("imagens/personagens/EngineerG");
+		imagem = new Image("imagens/personagens/EngineerG.png");
 	}
 	
 	public IEngineer[] armas;

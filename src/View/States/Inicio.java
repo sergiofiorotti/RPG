@@ -11,7 +11,6 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class Inicio extends BasicGameState {
-
 	
 	private Image imagemBackground;
 	private Image galaxyDestiny;

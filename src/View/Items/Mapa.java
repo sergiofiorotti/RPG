@@ -10,13 +10,13 @@ public class Mapa {
 	}
 	
 	private static TiledMap map;
-	public static int size = 20;
+	private static int size = 20;
 	
 	public TiledMap getMap(){
 		return map;
 	}
 	
-	public int getSize(){
+	public static int getSize(){
 		return size;
 	}
 }

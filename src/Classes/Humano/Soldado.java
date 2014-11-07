@@ -20,8 +20,6 @@ final public class Soldado extends Classe<ISoldado>{
 		armas[2] = new Sniper();
 		
 		imagem = new Image("imagens/personagens/MohamedG.png");
-		
-		
 	}
 	
 	public ISoldado[] armas;

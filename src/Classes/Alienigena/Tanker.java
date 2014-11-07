@@ -19,7 +19,7 @@ final public class Tanker extends Classe<ITanker>{
 		armas[1] = new Pistola();
 		armas[2] = new MiniGun();
 		
-		imagem = new Image("imagens/personagens/TankerG");
+		imagem = new Image("imagens/personagens/TankerG.png");
 	}
 	
 	public ITanker[] armas;

@@ -10,17 +10,15 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Jogo extends StateBasedGame {
 
-	public static final String gameName = "Galaxy Destiny";
-	
-	public static final int menuState = 0;
-	public static final int mapaState = 1;
-	public static final int gameOverState = 2;
-	public static final int lutaState = 3;
-	public static final int menuInGameState = 4;
-	public static final int personagemState = 5;
-	public static final int menuLutaState = 6;
-	public static final int inicio = 7;
-	
+	private static final String gameName = "Galaxy Destiny";
+	private static final int menuState = 0;
+	private static final int mapaState = 1;
+	private static final int gameOverState = 2;
+	private static final int lutaState = 3;
+	private static final int menuInGameState = 4;
+	private static final int personagemState = 5;
+	private static final int menuLutaState = 6;
+	private static final int inicio = 7;
 	
 	public Jogo(String gameName){
 		super(gameName);

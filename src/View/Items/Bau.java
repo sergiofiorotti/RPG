@@ -24,14 +24,14 @@ public class Bau {
 	private int[][] posicao; 
 	
 	public Boolean temBau(float x, float y){
-		int xBau = (int)x / Mapa.size;
-        int yBau = (int)y / Mapa.size;
+		int xBau = (int)x / Mapa.getSize();
+        int yBau = (int)y / Mapa.getSize();
         return bau[xBau][yBau];
 	}
 	
 	public void abrirBau(float x, float y){
-		int xBau = (int)x / Mapa.size;
-        int yBau = (int)y / Mapa.size;
+		int xBau = (int)x / Mapa.getSize();
+        int yBau = (int)y / Mapa.getSize();
         bau[xBau][yBau] = true;
 	}
 	
@@ -64,11 +64,11 @@ public class Bau {
 		for	(int i = 0; i < quantidade; i++){
 			int x,y;
 			do{
-				x = new Random().nextInt(800) / Mapa.size;
-				y = new Random().nextInt(600) / Mapa.size;
+				x = new Random().nextInt(800) / Mapa.getSize();
+				y = new Random().nextInt(600) / Mapa.getSize();
 			}while(bloqueado[x][y]);
-			posicao[i][0] = x * Mapa.size;
-			posicao[i][1] = y * Mapa.size;
+			posicao[i][0] = x * Mapa.getSize();
+			posicao[i][1] = y * Mapa.getSize();
 		}
 		return posicao;
 	}

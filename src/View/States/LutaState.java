@@ -17,8 +17,8 @@ import Armas.Arma;
 
 public class LutaState extends BasicGameState {
 
-	private Classe <?> player;
-	private Classe <?> enemy;
+	private Classe<?> player;
+	private Classe<?> enemy;
 	private Image imagemBackground;
 	private IClasse[] listaArmas;
 	
@@ -27,20 +27,30 @@ public class LutaState extends BasicGameState {
 	
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1)throws SlickException {
-		
 		imagemBackground = new Image("imagens/lutaBackground.png");
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException {
 		
+		// Desenha fundo
 		g.drawImage(imagemBackground, 0, 0);
 		
+		// Desenha o inimigo
+		if (enemy != null)
+			g.drawImage(enemy.getImagem(), (int)500, (int)200);
+		else{
+			enemy = MapaState.getEnemy();
+		}
+		
+		// Desenha o personagem
 		player = PersonagemState.getClasse();
 		g.drawImage(player.getImagem(), 50, 200);
-		enemy = MapaState.getEnemy();
-		g.drawImage(enemy.getImagem(), 500, 200);
 		
+		IClasse[] armas = (IClasse[]) player.getArmas();
+		int ataque = player.attack((Arma) armas[0]);
+		
+//		enemy.subHp(ataque);
 		
 		listaArmas = (IClasse[]) player.getArmas();
 		
@@ -48,8 +58,8 @@ public class LutaState extends BasicGameState {
 		g.drawImage( ((Arma)listaArmas[1]).getImagem(),140, 500);
 		g.drawImage( ((Arma)listaArmas[2]).getImagem(),260, 500);
 
-		g.drawString("VIDA = "+player.getHp(),50, 100);
-		g.drawString("VIDA = "+enemy.getHp(),500, 100);
+//		g.drawString("VIDA = "+player.getHp(),50, 100);
+//		g.drawString("VIDA = "+enemy.getHp(),500, 100);
 		
 	}
 

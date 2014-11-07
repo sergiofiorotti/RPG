@@ -6,6 +6,8 @@ public class Animacao {
 	
 	public Animacao(Image sprite)
 	{
+		this.sprite = sprite;
+		
 		this.movimentoUp = new Image[] {sprite.getSubImage(54, 0, 15, 21), sprite.getSubImage(72, 0, 15, 21), sprite.getSubImage(90, 0, 15, 21)};
 		this.up = new Animation(movimentoUp, duration, false);
 		
@@ -20,6 +22,8 @@ public class Animacao {
 	}
 	
 	final static int[] duration = {300, 300, 300}; 
+	
+	private Image sprite;
 	
 	private Image[] movimentoUp;
 	private Animation up;
@@ -47,5 +51,9 @@ public class Animacao {
 	
 	public Animation Right(){
 		return right;
+	}
+	
+	public Image getImage(){
+		return sprite.getSubImage(0, 0, 15, 21);
 	}
 }

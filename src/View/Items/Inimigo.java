@@ -1,20 +1,17 @@
 package View.Items;
 
 import java.util.Random;
-
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
+import Classes.Alienigena.*;
+import Main.Classe;
 
 public class Inimigo {
 
 	public Inimigo(int quantidade, TiledMap map, Boolean[][] bloqueado) throws SlickException{
-		images = new Image[] { 	new Image("imagens/personagens/Engineer.png"), 
-								new Image("imagens/personagens/Soldier.png"),
-								new Image("imagens/personagens/Tanker.png")};
-		
 		this.quantidade = quantidade;
-		posicao = new int[quantidade][3];
+		posicao = new InimigoModel[quantidade];
 		SortearInimigo(map, bloqueado);
 		
 		inimigo = new Boolean[map.getWidth()][map.getHeight()];
@@ -23,25 +20,30 @@ public class Inimigo {
 	
 	public Image[] images;
 	public Boolean[][] inimigo;
-	public int[][] posicao;
+	public InimigoModel[] posicao;
 	public int quantidade;
 	
 	public Boolean temInimigo(float x, float y){
-		int xInimigo = (int)x / Mapa.size;
-        int yInimigo = (int)y / Mapa.size;
+		int xInimigo = (int)x / Mapa.getSize();
+        int yInimigo = (int)y / Mapa.getSize();
         return inimigo[xInimigo][yInimigo];
-	}
-	
-	public Image[] getImagens(){
-		return images;
 	}
 	
 	public int getQuantidade(){
 		return quantidade;
 	}
 	
-	public int[][] getPosicao(){
+	public InimigoModel[] getPosicao(){
 		return posicao;
+	}
+	
+	public Classe<?> getPosicao(float xEnemy, float yEnemy){
+		for (int i=0; i < quantidade; i++){
+			if (posicao[i].getX() / Mapa.getSize() == (int)(xEnemy / Mapa.getSize()) && posicao[i].getY() / Mapa.getSize() == (int)(yEnemy / Mapa.getSize())){
+				return posicao[i].getClasse();
+			}
+		}
+		return null;
 	}
 	
 	public void InimigoMapa(TiledMap map){
@@ -49,7 +51,7 @@ public class Inimigo {
              for (int y=0; y < map.getHeight(); y++){
             	 inimigo[x][y] = false;
             	 for(int i = 0; i < quantidade; i++){
-            		 if (posicao[i][0] == x * 20 && posicao[i][1] == y * 20){
+            		 if (posicao[i].getX() == x * 20 && posicao[i].getY() == y * 20){
             			 inimigo[x][y] = true;
             		 }
             	 }
@@ -57,17 +59,31 @@ public class Inimigo {
         }
 	}
 	
-	public int[][] SortearInimigo(TiledMap map, Boolean[][] bloqueado){
+	public InimigoModel[] SortearInimigo(TiledMap map, Boolean[][] bloqueado) throws SlickException{
 		for	(int i = 0; i < quantidade; i++){
 			int x,y,z;
 			do{
-				x = new Random().nextInt(800) / Mapa.size;
-				y = new Random().nextInt(600) / Mapa.size;
-				z = new Random().nextInt(images.length);
+				x = new Random().nextInt(800) / Mapa.getSize();
+				y = new Random().nextInt(600) / Mapa.getSize();
+				z = new Random().nextInt(3);
 			}while(bloqueado[x][y]);
-			posicao[i][0] = x * Mapa.size;
-			posicao[i][1] = y * Mapa.size;
-			posicao[i][2] = z;
+			
+			x *= Mapa.getSize();
+			y *= Mapa.getSize();
+			
+			switch (z) {
+			case 0:
+				posicao[i] = new InimigoModel(x, y, new Engineer());
+				break;
+			case 1:
+				posicao[i] = new InimigoModel(x, y, new Soldier());
+				break;
+			case 2:
+				posicao[i] = new InimigoModel(x, y, new Tanker());
+				break;
+			default:
+				break;
+			}
 		}
 		return posicao;
 	}

@@ -11,7 +11,6 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.state.transition.RotateTransition;
 
-import Classes.Alienigena.Soldier;
 import Main.Classe;
 import View.Items.*;
 import View.States.PersonagemState;
@@ -24,12 +23,12 @@ public class MapaState extends BasicGameState {
 	private Bloqueado bloqueado;
 	private Bau bau;
 	private Inimigo inimigo;
+	private static Classe<?> enemy;
 	
 	// Personagem
 	private Classe<?> classe;
 	private Animation sprite;
 	private float x = 20f, y = 20f;
-	private static Classe<?> enemy;
 	
 	public MapaState(int state){
 	}
@@ -86,6 +85,7 @@ public class MapaState extends BasicGameState {
 		
 		Boolean temInimigo = inimigo.temInimigo(x, y);
 		if (temInimigo){
+			enemy = inimigo.getPosicao(x, y);
 			sbg.enterState(3, new FadeOutTransition(), new RotateTransition());
 		}
 	}
@@ -94,6 +94,10 @@ public class MapaState extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		
+		// Renderiza o mapa
+		map.getMap().render(0, 0);
+		
+		// Desenha o personagem
 		if (classe != null)
 			sprite.draw((int)x, (int)y);
 		else{
@@ -101,13 +105,9 @@ public class MapaState extends BasicGameState {
 			sprite = classe.getAnimacao().Right();
 		}
 		
-		// Renderiza o mapa
-		map.getMap().render(0, 0);
-		
-		// Desenha o personagem na tela
-		sprite.draw((int)x, (int)y);
+		// Desenha o inimigo na tela
 		for(int i=0; i < inimigo.getQuantidade(); i++){
-			g.drawImage(inimigo.getImagens()[inimigo.getPosicao()[i][2]], inimigo.getPosicao()[i][0], inimigo.getPosicao()[i][1]);
+			g.drawImage(inimigo.getPosicao()[i].getClasse().getAnimacao().getImage(), inimigo.getPosicao()[i].getX(), inimigo.getPosicao()[i].getY());
 		}
 		
 		// Desenha os baús
