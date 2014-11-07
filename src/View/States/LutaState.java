@@ -47,20 +47,21 @@ public class LutaState extends BasicGameState {
 		player = PersonagemState.getClasse();
 		g.drawImage(player.getImagem(), 50, 200);
 		
-		//IClasse[] armas = (IClasse[]) player.getArmas();
-		//int ataque = player.attack((Arma) armas[0]);
-		
-//		enemy.subHp(ataque);
-		
+		// Desenha as armas
 		listaArmas = (IClasse[]) player.getArmas();
-		
-		g.drawImage( ((Arma)listaArmas[0]).getImagem(),20, 500);
-		g.drawImage( ((Arma)listaArmas[1]).getImagem(),140, 500);
-		g.drawImage( ((Arma)listaArmas[2]).getImagem(),260, 500);
+		int x = 0;
+		for(int i = 0; i < listaArmas.length; i++){
+			if (listaArmas[i] != null){
+				g.drawImage(((Arma)listaArmas[i]).getImagem(), (x + 40 * (i + 1)), 500);
+				int numero = i + 1;
+				g.drawString("[PRESS " + numero + "]", (x + 40 * (i + 1)), 487);
+				x += 80;
+			}
+		}
 
-//		g.drawString("VIDA = "+player.getHp(),50, 100);
-//		g.drawString("VIDA = "+enemy.getHp(),500, 100);
-		
+		// Desenha a vida
+		g.drawString("VIDA = " + player.getHp(), 50, 450);
+		g.drawString("VIDA = " + enemy.getHp(), 500, 450);
 	}
 
 	@Override
@@ -69,12 +70,10 @@ public class LutaState extends BasicGameState {
 		if(input.isKeyDown(Input.KEY_ESCAPE)){
 			sbg.enterState(6, new FadeOutTransition(), new FadeInTransition());
 		}
-		
 	}
 
 	@Override
 	public int getID() {
 		return 3;
 	}
-
 }
