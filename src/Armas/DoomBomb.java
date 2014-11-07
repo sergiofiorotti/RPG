@@ -5,7 +5,7 @@ import org.newdawn.slick.SlickException;
 
 import Interfaces.*;
 
-public class DoomBomb extends ArmaFogo implements IEngenheiro, ISoldado, IEspiao, IEngineer, ISoldier, ITanker {
+public class DoomBomb extends ArmaFogo implements IEngenheiro, IEspiao, ISoldado, IEngineer, ISoldier, ITanker {
 
 	public DoomBomb()throws SlickException
 	{

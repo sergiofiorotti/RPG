@@ -6,6 +6,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 import Armas.ArmaFogo;
+import Armas.DoomBomb;
 import Interfaces.IClasse;
 import Main.Classe;
 
@@ -80,7 +81,6 @@ public class Bau {
 				x = new Random().nextInt(800) / Mapa.getSize();
 				y = new Random().nextInt(600) / Mapa.getSize();
 				item = new Random().nextInt(4);
-				item = new Random().nextInt(4);
 			}while(bloqueado[x][y]);
 			x *= Mapa.getSize();
 			y *= Mapa.getSize();
@@ -89,7 +89,7 @@ public class Bau {
 		return posicao;
 	}
 	
-	public String SortearItemBau(Classe<?> classe, BauModel bau){
+	public String SortearItemBau(Classe<?> classe, BauModel bau) throws SlickException{
 		String retornar = "";
 		switch (bau.getItem()) {
 		case 0:
@@ -97,7 +97,7 @@ public class Bau {
 			break;
 		case 1:
 			classe.addHp((int)(classe.getHp() * 1.5));
-			retornar = "Voce ganhou 50% a mais de vida";
+			retornar = "Voce ganhou mais vida";
 			break;
 		case 2:
 			int quantidadeArmas = classe.getArmas().length;
@@ -108,15 +108,21 @@ public class Bau {
 				armaFogo = (ArmaFogo) arma;
 				int balas = new Random().nextInt(10) + 1;
 				armaFogo.addMunicao(balas);
-				classe.setArmas(arma, sortearArma);
+				classe.setArmas(armaFogo, sortearArma);
 				retornar = "Voce ganhou " + balas + " bala(s)!";
 			}
 			catch(Exception e){
 				retornar = "Voce nao tem sorte mesmo!";
+				break;
 			}
 			break;
 		case 3:
-			retornar = "Arma";
+			int sortearDoomBomb = new Random().nextInt(2);
+			if (sortearDoomBomb == 1){
+				classe.setArmas(new DoomBomb(), 4);
+				retornar = "Voce ganhou a Doom Bomb!";
+			}
+			retornar = "Alguem roubou a Doom Bomb do bau!";
 			break;
 		}
 		
