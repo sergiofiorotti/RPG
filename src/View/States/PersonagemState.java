@@ -39,9 +39,9 @@ public class PersonagemState extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException{
 		g.drawImage(imagemBackground, 0, 0);
-		g.drawImage(soldado, 300, 100);
-		g.drawImage(engenheiro, 300, 200);
-		g.drawImage(espiao, 300, 300);
+		g.drawImage(soldado, 140, 80);
+		g.drawImage(engenheiro, 40, 230);
+		g.drawImage(espiao, 160, 400);
 	}
 
 	@Override
@@ -50,19 +50,23 @@ public class PersonagemState extends BasicGameState {
 		int xpos = input.getMouseX();
 		int ypos = input.getMouseY();
 		
-		if((xpos>300 && xpos<450) && (ypos>100 && ypos<150)){
+		if(input.isKeyDown(Input.KEY_ESCAPE)){
+			sbg.enterState(0, new FadeOutTransition(), new FadeInTransition());
+		}
+		
+		if((xpos>140 && xpos<694) && (ypos>80 && ypos<180)){
 			if(input.isMouseButtonDown(0)){
 				sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
 				PersonagemState.classe = new Soldado();
 			}
 		}
-		if((xpos>300 && xpos<450) && (ypos>200 && ypos<250)){
+		if((xpos>40 && xpos<780) && (ypos>230 && ypos<350)){
 			if(input.isMouseButtonDown(0)){
 				sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
 				PersonagemState.classe = new Engenheiro();
 			}
 		}
-		if((xpos>300 && xpos<450) && (ypos>300 && ypos<350)){
+		if((xpos>160 && xpos<650) && (ypos>400 && ypos<500)){
 			if(input.isMouseButtonDown(0)){
 				sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
 				PersonagemState.classe = new Espiao();

@@ -10,14 +10,14 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
-public class MenuInGameState extends BasicGameState {
+public class MenuLutaState extends BasicGameState {
 
 	
 	private Image imagemBackground;
 	private Image jogar;
 	private Image sair;
 	
-	public MenuInGameState(int state){
+	public MenuLutaState(int state){
 			
 		}
 	
@@ -43,7 +43,7 @@ public class MenuInGameState extends BasicGameState {
 		
 		if((xpos>173 && xpos<628) && (ypos>150 && ypos<267)){
 			if(input.isMouseButtonDown(0))
-			sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
+			sbg.enterState(3, new FadeOutTransition(), new FadeInTransition());
 		}
 		if((xpos>218 && xpos<573) && (ypos>350 && ypos<458)){
 			if(input.isMouseButtonDown(0)){
@@ -54,7 +54,7 @@ public class MenuInGameState extends BasicGameState {
 
 	@Override
 	public int getID() {
-		return 4;
+		return 6;
 	}
 }
 

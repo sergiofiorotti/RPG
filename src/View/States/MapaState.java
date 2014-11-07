@@ -11,6 +11,8 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.state.transition.RotateTransition;
+
+import Classes.Alienigena.Soldier;
 import Main.Classe;
 import View.Items.*;
 import View.States.PersonagemState;
@@ -27,6 +29,7 @@ public class MapaState extends BasicGameState {
 	private Animation sprite;
 	private float x = 20f, y = 20f;
 	private Image alien;
+	private static Classe<?> enemy;
 	
 	public MapaState(int state){
 	}
@@ -83,6 +86,7 @@ public class MapaState extends BasicGameState {
 		
 		if (x > 190 && x < 210  && y > 190 && y < 210)
 			sbg.enterState(3, new FadeOutTransition(), new RotateTransition());
+			enemy = new Soldier();
 	}
 
 	@Override
@@ -122,5 +126,9 @@ public class MapaState extends BasicGameState {
 	@Override
 	public int getID() {
 		return 1;
+	}
+	
+	public static Classe<?> getEnemy(){
+		return enemy;
 	}
 }

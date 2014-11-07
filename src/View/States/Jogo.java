@@ -18,6 +18,8 @@ public class Jogo extends StateBasedGame {
 	public static final int lutaState = 3;
 	public static final int menuInGameState = 4;
 	public static final int personagemState = 5;
+	public static final int menuLutaState = 6;
+	public static final int inicio = 7;
 	
 	
 	public Jogo(String gameName){
@@ -28,6 +30,8 @@ public class Jogo extends StateBasedGame {
 		this.addState(new MenuInGameState(menuInGameState));
 		this.addState(new PersonagemState(personagemState));
 		this.addState(new MapaState(mapaState));
+		this.addState(new MenuLutaState(menuLutaState));
+		this.addState(new Inicio(inicio));
 	}
 	
 	public void initStatesList(GameContainer gc) throws SlickException {
@@ -37,7 +41,9 @@ public class Jogo extends StateBasedGame {
 		this.getState(gameOverState).init(gc, this);
 		this.getState(menuInGameState).init(gc, this);
 		this.getState(personagemState).init(gc, this);
-		this.enterState(0);
+		this.getState(menuLutaState).init(gc, this);
+		this.getState(inicio).init(gc, this);
+		this.enterState(7);
 	}
 	
 	public static void main(String[] args)

@@ -10,51 +10,38 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
-public class MenuInGameState extends BasicGameState {
+public class Inicio extends BasicGameState {
 
 	
 	private Image imagemBackground;
-	private Image jogar;
-	private Image sair;
+	private Image galaxyDestiny;
 	
-	public MenuInGameState(int state){
+	public Inicio(int state){
 			
-		}
+	}
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
 		imagemBackground = new Image("imagens/menuBackground.png");
-		jogar = new Image("imagens/jogar.png");
-		sair = new Image("imagens/sair.png");
+		galaxyDestiny = new Image("imagens/galaxy.png");
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException{
 		g.drawImage(imagemBackground, 0, 0);
-		g.drawImage(jogar, 173, 150);
-		g.drawImage(sair, 218, 350);
+		g.drawImage(galaxyDestiny,90,150);
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException {
 		Input input = gc.getInput();
-		int xpos = input.getMouseX();
-		int ypos = input.getMouseY();
-		
-		if((xpos>173 && xpos<628) && (ypos>150 && ypos<267)){
-			if(input.isMouseButtonDown(0))
-			sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
-		}
-		if((xpos>218 && xpos<573) && (ypos>350 && ypos<458)){
-			if(input.isMouseButtonDown(0)){
-				gc.exit();
-			}
+		if(input.isKeyDown(Input.KEY_ENTER)){
+			sbg.enterState(0, new FadeOutTransition(), new FadeInTransition());
 		}
 	}
 
 	@Override
 	public int getID() {
-		return 4;
+		return 7;
 	}
 }
-

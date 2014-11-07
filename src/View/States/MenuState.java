@@ -31,8 +31,8 @@ public class MenuState extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)throws SlickException{
 		g.drawImage(imagemBackground, 0, 0);
-		g.drawImage(jogar, 350, 100);
-		g.drawImage(sair, 350, 200);
+		g.drawImage(jogar, 173, 150);
+		g.drawImage(sair, 218, 350);
 	}
 
 	@Override
@@ -41,11 +41,11 @@ public class MenuState extends BasicGameState {
 		int xpos = input.getMouseX();
 		int ypos = input.getMouseY();
 		
-		if((xpos>350 && xpos<450) && (ypos>100 && ypos<150)){
+		if((xpos>173 && xpos<628) && (ypos>150 && ypos<267)){
 			if(input.isMouseButtonDown(0))
 			sbg.enterState(5, new FadeOutTransition(), new FadeInTransition());
 		}
-		if((xpos>350 && xpos<450) && (ypos>200 && ypos<250)){
+		if((xpos>218 && xpos<573) && (ypos>350 && ypos<458)){
 			if(input.isMouseButtonDown(0)){
 				gc.exit();
 			}

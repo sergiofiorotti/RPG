@@ -54,4 +54,8 @@ public abstract class Classe<T>{
 	public Image getImagem(){
 		return imagem;
 	}
+	
+	public int getHp(){
+		return hp;
+	}
 }

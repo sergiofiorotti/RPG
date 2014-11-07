@@ -1,5 +1,5 @@
 package Interfaces;
 
-public interface IClasse {
+public interface IClasse{
 
 }
