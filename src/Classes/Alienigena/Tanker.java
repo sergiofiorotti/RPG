@@ -6,6 +6,7 @@ import org.newdawn.slick.SlickException;
 import Armas.Faca;
 import Armas.MiniGun;
 import Armas.Pistola;
+import Interfaces.IClasse;
 import Interfaces.ITanker;
 import Main.Classe;
 
@@ -27,5 +28,10 @@ final public class Tanker extends Classe<ITanker>{
 	@Override
 	public ITanker[] getArmas() {
 		return armas;
+	}
+
+	@Override
+	public void setArmas(IClasse arma, int posicao) {
+		armas[posicao] = (ITanker) arma;
 	}
 }

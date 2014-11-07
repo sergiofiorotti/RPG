@@ -7,6 +7,7 @@ import Armas.Bazuca;
 import Armas.C4;
 import Armas.Granada;
 import Armas.Mecha;
+import Interfaces.IClasse;
 import Interfaces.IEngenheiro;
 import Main.Classe;
 
@@ -29,5 +30,10 @@ final public class Engenheiro extends Classe<IEngenheiro>{
 	@Override
 	public IEngenheiro[] getArmas() {
 		return armas;
+	}
+
+	@Override
+	public void setArmas(IClasse arma, int posicao) {
+		armas[posicao] = (IEngenheiro) arma;
 	}
 }

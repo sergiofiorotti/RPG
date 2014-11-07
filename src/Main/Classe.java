@@ -4,6 +4,7 @@ import org.newdawn.slick.Image;
 
 import View.States.Animacao;
 import Armas.Arma;
+import Interfaces.IClasse;
 
 public abstract class Classe<T>{
 	
@@ -44,6 +45,8 @@ public abstract class Classe<T>{
 	}
 
 	public abstract T[] getArmas();
+	
+	public abstract void setArmas(IClasse arma, int posicao);
 	
 	public int attack(Arma arma) {
 		if (arma.attack() > 0)

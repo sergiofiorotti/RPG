@@ -6,6 +6,7 @@ import org.newdawn.slick.SlickException;
 import Armas.Faca;
 import Armas.Fuzil;
 import Armas.Pistola;
+import Interfaces.IClasse;
 import Interfaces.IEspiao;
 import Main.Classe;
 
@@ -27,5 +28,10 @@ final public class Espiao extends Classe<IEspiao>{
 	@Override
 	public IEspiao[] getArmas() {
 		return armas;
+	}
+
+	@Override
+	public void setArmas(IClasse arma, int posicao) {
+		armas[posicao] = (IEspiao) arma;
 	}
 }

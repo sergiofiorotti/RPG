@@ -6,8 +6,17 @@ public class ArmaFogo extends Arma {
 
 	protected int municao;
 	
+	public int getMunicao(){
+		return municao;
+	}
+	
 	public void subMunicao(){
-		this.municao--;
+		if (municao > 0)
+			this.municao--;
+	}
+	
+	public void addMunicao(int municao){
+		this.municao += municao;
 	}
 	
 	public int attack(){

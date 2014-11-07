@@ -22,6 +22,8 @@ public class MapaState extends BasicGameState {
 	private Mapa map;
 	private Bloqueado bloqueado;
 	private Bau bau;
+	
+	// Inimigos
 	private Inimigo inimigo;
 	private static Classe<?> enemy;
 	
@@ -40,7 +42,6 @@ public class MapaState extends BasicGameState {
 		bloqueado = new Bloqueado(map);
 		bau = new Bau(2, map.getMap(), bloqueado.getBloqueado());
 		inimigo = new Inimigo(4, map.getMap(), bloqueado.getBloqueado());
-		
 	}
 
 	@Override
@@ -50,6 +51,7 @@ public class MapaState extends BasicGameState {
 		if(input.isKeyDown(Input.KEY_ESCAPE)){
 			sbg.enterState(4, new FadeOutTransition(), new FadeInTransition());
 		}
+		
 		if(input.isKeyDown(Input.KEY_UP)){
 			sprite = classe.getAnimacao().Up();
 			if (y - (i * 0.1f) > 0 && !bloqueado.isBloqueado(x, y - (i * 0.1f))){
@@ -84,10 +86,9 @@ public class MapaState extends BasicGameState {
 			sbg.enterState(3, new FadeOutTransition(), new RotateTransition());
 		}
 		
-		if(input.isKeyDown(Input.KEY_A) && bau.temBau(x, y)){
-			if (!bau.getPosicao(x, y).bauAberto()){
-				bau.getPosicao(x, y).abrirBau();
-			}
+		if(input.isKeyDown(Input.KEY_A) && !bau.getPosicao(x, y).bauAberto()){
+			bau.getPosicao(x, y).setAchouBau(bau.SortearItemBau(classe, bau.getPosicao(x, y)));
+			bau.getPosicao(x, y).abrirBau();
 		}
 	}
 
@@ -122,7 +123,7 @@ public class MapaState extends BasicGameState {
 			if (!bau.getPosicao(x, y).bauAberto())
 				g.drawString("Bau fechado! [PRESS A]", x - 100, y + 20);
 			else
-				g.drawString("Bau aberto!", x - 50, y + 20);
+				g.drawString(bau.getPosicao(x, y).getAchouBau(), x - 50, y + 20);
 		}
 	}
 

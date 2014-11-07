@@ -5,6 +5,10 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
+import Armas.ArmaFogo;
+import Interfaces.IClasse;
+import Main.Classe;
+
 public class Bau {
 
 	public Bau(int quantidade, TiledMap map, Boolean[][] bloqueado) throws SlickException{
@@ -12,7 +16,7 @@ public class Bau {
 		
 		this.quantidade = quantidade;
 		posicao = new BauModel[quantidade];
-		SortearBau(map, bloqueado);;
+		SortearPosicaoBau(map, bloqueado);;
 		
 		bau = new Boolean[map.getWidth()][map.getHeight()];
 		BauMapa(map);
@@ -69,17 +73,53 @@ public class Bau {
         }
 	}
 	
-	public BauModel[] SortearBau(TiledMap map, Boolean[][] bloqueado){
+	public BauModel[] SortearPosicaoBau(TiledMap map, Boolean[][] bloqueado){
 		for	(int i = 0; i < quantidade; i++){
-			int x,y;
+			int x,y,item;
 			do{
 				x = new Random().nextInt(800) / Mapa.getSize();
 				y = new Random().nextInt(600) / Mapa.getSize();
+				item = new Random().nextInt(4);
+				item = new Random().nextInt(4);
 			}while(bloqueado[x][y]);
 			x *= Mapa.getSize();
 			y *= Mapa.getSize();
-			posicao[i] = new BauModel(x, y);
+			posicao[i] = new BauModel(x, y, item);
 		}
 		return posicao;
+	}
+	
+	public String SortearItemBau(Classe<?> classe, BauModel bau){
+		String retornar = "";
+		switch (bau.getItem()) {
+		case 0:
+			retornar = "Bau vazio!";
+			break;
+		case 1:
+			classe.addHp((int)(classe.getHp() * 1.5));
+			retornar = "Voce ganhou 50% a mais de vida";
+			break;
+		case 2:
+			int quantidadeArmas = classe.getArmas().length;
+			int sortearArma = new Random().nextInt(quantidadeArmas);
+			IClasse arma = (IClasse) classe.getArmas()[sortearArma];
+			ArmaFogo armaFogo;
+			try{
+				armaFogo = (ArmaFogo) arma;
+				int balas = new Random().nextInt(10) + 1;
+				armaFogo.addMunicao(balas);
+				classe.setArmas(arma, sortearArma);
+				retornar = "Voce ganhou " + balas + " bala(s)!";
+			}
+			catch(Exception e){
+				retornar = "Voce nao tem sorte mesmo!";
+			}
+			break;
+		case 3:
+			retornar = "Arma";
+			break;
+		}
+		
+		return retornar;
 	}
 }
