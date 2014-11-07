@@ -7,15 +7,15 @@ import org.newdawn.slick.tiled.TiledMap;
 
 public class Bau {
 
-	public Bau(Mapa map, int quantidade, Boolean[][] bloqueado) throws SlickException{
+	public Bau(int quantidade, TiledMap map, Boolean[][] bloqueado) throws SlickException{
 		image = new Image("imagens/bau.png");
 		
 		this.quantidade = quantidade;
 		posicao = new int[quantidade][2];
-		SortearBau(map.getMap(), bloqueado);
+		SortearBau(map, bloqueado);
 		
-		bau = new Boolean[map.getMap().getWidth()][map.getMap().getHeight()];
-		BauMapa(map.getMap());
+		bau = new Boolean[map.getWidth()][map.getHeight()];
+		BauMapa(map);
 	}
 	
 	private Boolean[][] bau;
