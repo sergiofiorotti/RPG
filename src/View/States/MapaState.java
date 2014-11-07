@@ -3,7 +3,6 @@ package View.States;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
@@ -17,18 +16,19 @@ import Main.Classe;
 import View.Items.*;
 import View.States.PersonagemState;
 
+
 public class MapaState extends BasicGameState {
 
 	// Mapa
 	private Mapa map;
 	private Bloqueado bloqueado;
 	private Bau bau;
+	private Inimigo inimigo;
 	
 	// Personagem
 	private Classe<?> classe;
 	private Animation sprite;
 	private float x = 20f, y = 20f;
-	private Image alien;
 	private static Classe<?> enemy;
 	
 	public MapaState(int state){
@@ -39,9 +39,9 @@ public class MapaState extends BasicGameState {
 			throws SlickException {
 		map = new Mapa();
 		bloqueado = new Bloqueado(map);
-		bau = new Bau(map, 2, bloqueado.getBloqueado());
+		bau = new Bau(2, map.getMap(), bloqueado.getBloqueado());
+		inimigo = new Inimigo(4, map.getMap(), bloqueado.getBloqueado());
 		
-		alien = new Image("imagens/personagens/Soldier.png");
 	}
 
 	@Override
@@ -84,9 +84,10 @@ public class MapaState extends BasicGameState {
 			}
 		}
 		
-		if (x > 190 && x < 210  && y > 190 && y < 210)
+		Boolean temInimigo = inimigo.temInimigo(x, y);
+		if (temInimigo){
 			sbg.enterState(3, new FadeOutTransition(), new RotateTransition());
-			enemy = new Soldier();
+		}
 	}
 
 	@Override
@@ -105,7 +106,9 @@ public class MapaState extends BasicGameState {
 		
 		// Desenha o personagem na tela
 		sprite.draw((int)x, (int)y);
-		g.drawImage(alien, 200, 200);
+		for(int i=0; i < inimigo.getQuantidade(); i++){
+			g.drawImage(inimigo.getImagens()[inimigo.getPosicao()[i][2]], inimigo.getPosicao()[i][0], inimigo.getPosicao()[i][1]);
+		}
 		
 		// Desenha os baús
 		for(int i=0; i < bau.getQuantidade(); i++){
@@ -117,9 +120,9 @@ public class MapaState extends BasicGameState {
 		Boolean temBau = bau.temBau(x, y);
 		if (temBau != null){
 			if (!temBau)
-				g.drawString("Ba� fechado! [PRESS A]", x - 100, y + 20);
+				g.drawString("Bau fechado! [PRESS A]", x - 100, y + 20);
 			else if (temBau)
-				g.drawString("Baú aberto!", x, y + 20);
+				g.drawString("Bau aberto!", x - 100, y + 20);
 		}
 	}
 
