@@ -8,6 +8,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import Armas.Arma;
+import Interfaces.IClasse;
 import Main.Classe;
 
 public class LutaState extends BasicGameState {
@@ -37,6 +39,11 @@ public class LutaState extends BasicGameState {
 		
 		
 		player = PersonagemState.getClasse();
+		IClasse[] armas = (IClasse[]) player.getArmas();
+		int ataque = player.attack((Arma) armas[1]);
+		//enemy.subHp(ataque);
+		
+		
 		
 		g.drawImage(player.getImagem(), 50, 200);
 	}

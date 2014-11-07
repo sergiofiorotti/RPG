@@ -1,8 +1,9 @@
 package Armas;
 
 import org.newdawn.slick.Image;
+import Interfaces.IClasse;
 
-public abstract class Arma {
+public abstract class Arma implements IClasse {
 
 	protected int dano;
 	
