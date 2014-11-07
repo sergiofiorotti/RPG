@@ -1,6 +1,7 @@
 package View.Items;
 
 import java.util.Random;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
@@ -18,6 +19,10 @@ public class Bau {
 		BauMapa(map);
 	}
 	
+	public Bau(Mapa map, int i, Boolean[][] bloqueado) {
+		// TODO Auto-generated constructor stub
+	}
+
 	private Boolean[][] bau;
 	private Image image;
 	private int quantidade;
