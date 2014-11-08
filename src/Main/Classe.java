@@ -49,8 +49,9 @@ public abstract class Classe<T>{
 	public abstract void setArmas(IClasse arma, int posicao);
 	
 	public int attack(Arma arma) {
-		if (arma.attack() > 0)
-			return arma.attack() + forca;
+		int attack = arma.attack();
+		if (attack > 0)
+			return attack + forca;
 		return 0;
 	}
 	

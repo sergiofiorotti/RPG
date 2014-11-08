@@ -51,6 +51,7 @@ public class MapaState extends BasicGameState {
 		musica = new Music("musicas/Mapa.wav");
 	}
 
+	
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
 		Input input = gc.getInput();
