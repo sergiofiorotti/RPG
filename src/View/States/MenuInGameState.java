@@ -16,10 +16,11 @@ public class MenuInGameState extends BasicGameState {
 	private Image imagemBackground;
 	private Image jogar;
 	private Image sair;
+	private int state;
 	
 	public MenuInGameState(int state){
-			
-		}
+			this.state = state;
+	}
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
@@ -54,7 +55,7 @@ public class MenuInGameState extends BasicGameState {
 
 	@Override
 	public int getID() {
-		return 4;
+		return state;
 	}
 }
 

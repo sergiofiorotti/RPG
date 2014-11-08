@@ -16,9 +16,10 @@ public class MenuState extends BasicGameState {
 	private Image imagemBackground;
 	private Image jogar;
 	private Image sair;
+	private int state;
 	
 	public MenuState(int state){
-			
+		this.state = state;
 	}
 	
 	@Override
@@ -56,7 +57,7 @@ public class MenuState extends BasicGameState {
 
 	@Override
 	public int getID() {
-		return 0;
+		return state;
 	}
 }
 

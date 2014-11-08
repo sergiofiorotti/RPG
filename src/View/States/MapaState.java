@@ -1,6 +1,7 @@
 package View.States;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -15,7 +16,6 @@ import org.newdawn.slick.state.transition.RotateTransition;
 import Main.Classe;
 import View.Items.*;
 import View.States.PersonagemState;
-
 
 public class MapaState extends BasicGameState {
 
@@ -35,7 +35,10 @@ public class MapaState extends BasicGameState {
 	
 	private static Music musica;
 	
+	private int state;
+	
 	public MapaState(int state){
+		this.state = state;
 	}
 
 	@Override
@@ -49,11 +52,10 @@ public class MapaState extends BasicGameState {
 	}
 
 	@Override
-	public void update(GameContainer gc, StateBasedGame sbg, int i)
-			throws SlickException {
+	public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
 		Input input = gc.getInput();
 		if(input.isKeyDown(Input.KEY_ESCAPE)){
-			sbg.enterState(4, new FadeOutTransition(), new FadeInTransition());
+			sbg.enterState(Jogo.menuInGameState, new FadeOutTransition(), new FadeInTransition());
 		}
 		
 		if(input.isKeyDown(Input.KEY_UP)){
@@ -65,7 +67,7 @@ public class MapaState extends BasicGameState {
 		}
 		else if(input.isKeyDown(Input.KEY_DOWN)){
 			sprite = classe.getAnimacao().Down();
-			if (y + (i * 0.1f) < 600 && !bloqueado.isBloqueado(x, y + (i * 0.1f))){
+			if ((int)(y + (i * 0.1f)) < 585 && !bloqueado.isBloqueado(x, y + (i * 0.1f))){
 				sprite.update(i);
 				y += i * 0.1f;
 			}
@@ -79,21 +81,21 @@ public class MapaState extends BasicGameState {
 		}
 		else if(input.isKeyDown(Input.KEY_RIGHT)){
 			sprite = classe.getAnimacao().Right();
-			if (x + (i * 0.1f) < 800 && !bloqueado.isBloqueado(x + (i * 0.1f), y)){
+			if ((int)(x + (i * 0.1f)) < 785 && !bloqueado.isBloqueado(x + (i * 0.1f), y)){
 				sprite.update(i);
 				x += i * 0.1f;
 			}
 		}
 		
-		if(!(classe.isLife())){
-			sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
+		if(!classe.isLife()){
+			sbg.enterState(Jogo.gameOverState, new FadeOutTransition(), new FadeInTransition());
 		}
 		
 		if (inimigo.temInimigo(x, y) && inimigo.getPosicao(x,y).isLife()){
 			enemy = inimigo.getPosicao(x, y);
-			sbg.enterState(3, new FadeOutTransition(), new RotateTransition());
 			MapaState.stopMusica();
 			LutaState.playMusica();
+			sbg.enterState(Jogo.lutaState, new FadeOutTransition(), new RotateTransition());
 		}
 		
 		if(input.isKeyDown(Input.KEY_A) && !bau.getPosicao(x, y).bauAberto()){
@@ -131,16 +133,21 @@ public class MapaState extends BasicGameState {
 		/* Passou por cima de um baú sinaliza uma mensagem 
 		se o baú está aberto ou fechado */
 		if (bau.temBau(x, y)){
-			if (!bau.getPosicao(x, y).bauAberto())
-				g.drawString("Bau fechado! [PRESS A]", x - 100, y + 20);
-			else
-				g.drawString(bau.getPosicao(x, y).getAchouBau(), x - 50, y + 20);
+			g.setColor(Color.black);
+			if (!bau.getPosicao(x, y).bauAberto()){
+				String s = "Bau fechado! [PRESS A]";
+				g.drawString(s, bau.acertarMensagemBauX((int)x, g.getFont().getWidth(s)), bau.acertarMensagemBauY((int)y, g.getFont().getHeight(s)));
+			}
+			else{
+				String s = bau.getPosicao(x, y).getAchouBau();
+				g.drawString(bau.getPosicao(x, y).getAchouBau(), bau.acertarMensagemBauX((int)x, g.getFont().getWidth(s)), bau.acertarMensagemBauY((int)y, g.getFont().getHeight(s)));
+			}
 		}
 	}
 
 	@Override
 	public int getID() {
-		return 1;
+		return state;
 	}
 	
 	public static Classe<?> getEnemy(){

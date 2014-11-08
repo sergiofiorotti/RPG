@@ -23,10 +23,11 @@ public class PersonagemState extends BasicGameState {
 	private Image engenheiro;
 	private Image espiao;
 	private static Classe<?> classe;
+	private int state;
 	
 	public PersonagemState(int state){
-			
-		}
+		this.state = state;
+	}
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
@@ -82,7 +83,7 @@ public class PersonagemState extends BasicGameState {
 
 	@Override
 	public int getID() {
-		return 5;
+		return state;
 	}
 	
 	public static Classe<?> getClasse(){

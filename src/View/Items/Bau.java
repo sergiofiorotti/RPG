@@ -78,8 +78,8 @@ public class Bau {
 		for	(int i = 0; i < quantidade; i++){
 			int x,y,item;
 			do{
-				x = new Random().nextInt(800) / Mapa.getSize();
-				y = new Random().nextInt(600) / Mapa.getSize();
+				x = new Random().nextInt(780) / Mapa.getSize();
+				y = new Random().nextInt(580) / Mapa.getSize();
 				item = new Random().nextInt(4);
 			}while(bloqueado[x][y]);
 			x *= Mapa.getSize();
@@ -96,7 +96,8 @@ public class Bau {
 			retornar = "Bau vazio!";
 			break;
 		case 1:
-			classe.addHp((int)(classe.getHp() * 1.5));
+			int vida = (int) (classe.getHp() * 0.5);
+			classe.addHp(vida);
 			retornar = "Voce ganhou mais vida";
 			break;
 		case 2:
@@ -122,10 +123,31 @@ public class Bau {
 				classe.setArmas(new DoomBomb(), 4);
 				retornar = "Voce ganhou a Doom Bomb!";
 			}
-			retornar = "Alguem roubou a Doom Bomb do bau!";
+			else
+				retornar = "Alguem roubou a Doom Bomb do bau!";
 			break;
 		}
 		
 		return retornar;
+	}
+	
+	public int acertarMensagemBauX(int x, int tamanho){
+		if (x < (tamanho / 2))
+			x = 3;
+		else if (x + tamanho > 800){
+			x = 800 - (tamanho) - 3;
+		}
+		else{
+			x = x - (tamanho / 2);
+		}
+		return x;
+	}
+	
+	public int acertarMensagemBauY(int y, int tamanho){
+		if (y + tamanho > 600)
+			y -= 20;
+		else
+			y += 20;
+		return y;
 	}
 }
