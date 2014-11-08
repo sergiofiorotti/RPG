@@ -57,18 +57,24 @@ public class PersonagemState extends BasicGameState {
 		if((xpos>140 && xpos<694) && (ypos>80 && ypos<180)){
 			if(input.isMouseButtonDown(0)){
 				sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
+				Inicio.stopMucica();
+				MapaState.playMusica();
 				PersonagemState.classe = new Soldado();
 			}
 		}
 		if((xpos>40 && xpos<780) && (ypos>230 && ypos<350)){
 			if(input.isMouseButtonDown(0)){
 				sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
+				Inicio.stopMucica();
+				MapaState.playMusica();
 				PersonagemState.classe = new Engenheiro();
 			}
 		}
 		if((xpos>160 && xpos<650) && (ypos>400 && ypos<500)){
 			if(input.isMouseButtonDown(0)){
 				sbg.enterState(1, new FadeOutTransition(), new FadeInTransition());
+				Inicio.stopMucica();
+				MapaState.playMusica();
 				PersonagemState.classe = new Espiao();
 			}
 		}

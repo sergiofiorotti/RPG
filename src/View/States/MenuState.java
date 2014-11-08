@@ -33,6 +33,8 @@ public class MenuState extends BasicGameState {
 		g.drawImage(imagemBackground, 0, 0);
 		g.drawImage(jogar, 173, 150);
 		g.drawImage(sair, 218, 350);
+		
+		g.drawString("USE O MOUSE", 350, 100);
 	}
 
 	@Override
