@@ -2,14 +2,18 @@ package View.States;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+
 public class Creditos extends BasicGameState {
 	
 	private static Music musica;
+	private Image felippeNome;
+	private Image felippeChar;
 	
 	private int state;
 	
@@ -20,21 +24,18 @@ public class Creditos extends BasicGameState {
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {
-		musica = new Music("musicas/Mapa.wav");
+		musica = new Music("musicas/creditos.wav");
+		
+		felippeNome = new Image("imagens/Felippe (2).png");
+		felippeChar = new Image("imagens/felippe.png");
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		
-		g.drawString("GALAXY DESTINY", 300, 100);
-		g.drawString("Diretor de Audio                 Leonardo Biazoto",100,300);
-		
-		g.drawString("GALAXY DESTINY", 300, 100);
-		g.drawString("Diretor de Desenvolvimento       Sergio Fiorotti",100,300);
-		
-		g.drawString("GALAXY DESTINY", 300, 100);
-		g.drawString("Diretor de Artes                 Felippe Miguel",100,300);
+		g.drawImage(felippeNome,150,170);
+		g.drawImage(felippeChar, 600, 400);
 	}
 
 	@Override
