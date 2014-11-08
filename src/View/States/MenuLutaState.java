@@ -44,7 +44,7 @@ public class MenuLutaState extends BasicGameState {
 		
 		if((xpos>173 && xpos<628) && (ypos>150 && ypos<267)){
 			if(input.isMouseButtonDown(0))
-			sbg.enterState(3, new FadeOutTransition(), new FadeInTransition());
+			sbg.enterState(Jogo.lutaState, new FadeOutTransition(), new FadeInTransition());
 		}
 		if((xpos>218 && xpos<573) && (ypos>350 && ypos<458)){
 			if(input.isMouseButtonDown(0)){

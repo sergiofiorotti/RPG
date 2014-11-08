@@ -42,9 +42,8 @@ public class Inicio extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException {
 		Input input = gc.getInput();
 		if(input.isKeyDown(Input.KEY_ENTER)){
-			sbg.enterState(0, new FadeOutTransition(), new FadeInTransition());
+			sbg.enterState(Jogo.menuState, new FadeOutTransition(), new FadeInTransition());
 		}
-		
 	}
 
 	@Override

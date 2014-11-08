@@ -23,7 +23,7 @@ public class Creditos extends BasicGameState {
 			throws SlickException {
 		
 		g.drawString("GALAXY DESTINY", 300, 100);
-		g.drawString("Diretor de áudio                 Leonardo Biazoto",100,300);
+		g.drawString("Diretor de Audio                 Leonardo Biazoto",100,300);
 		gc.sleep(10000);
 		g.drawString("GALAXY DESTINY", 300, 100);
 		g.drawString("Diretor de Desenvolvimento       Sergio Fiorotti",100,300);
