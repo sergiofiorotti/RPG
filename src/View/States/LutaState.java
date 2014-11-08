@@ -44,7 +44,7 @@ public class LutaState extends BasicGameState {
 	
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1)throws SlickException {
-		imagemBackground = new Image("imagens/lutaBackground.png");
+		imagemBackground = new Image("imagens/lutaBackground.jpg");
 		musica = new Music("musicas/op2Batalha.wav");
 	}
 
@@ -187,8 +187,12 @@ public class LutaState extends BasicGameState {
 		}
 		
 		if(!player.isLife()){
-			if(input.isKeyDown(Input.KEY_SPACE))
-			sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
+			if(input.isKeyDown(Input.KEY_SPACE)){
+				LutaState.stopMusica();
+				GameOverState.playMusica();
+				sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
+				
+			}
 		}
 		
 		if(!enemy.isLife()){
