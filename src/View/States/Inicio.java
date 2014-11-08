@@ -11,16 +11,15 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
-import java.time.Duration;
-
 public class Inicio extends BasicGameState {
 	
 	private Image imagemBackground;
 	private Image galaxyDestiny;
 	private static Music musica;
+	private int state;
 	
 	public Inicio(int state){
-			
+		this.state = state;
 	}
 	
 	@Override
@@ -50,7 +49,7 @@ public class Inicio extends BasicGameState {
 
 	@Override
 	public int getID() {
-		return 7;
+		return state;
 	}
 	
 	public static void stopMucica(){

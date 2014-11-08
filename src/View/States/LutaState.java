@@ -32,10 +32,11 @@ public class LutaState extends BasicGameState {
 	private int armaEscolhida;
 	private int aleatorio;
 	private Boolean rodadaOk=false;
-	
 	private static Music musica;
+	private int state;
 	
 	public LutaState(int state){
+		this.state = state;
 	}
 	
 	@Override
@@ -133,27 +134,29 @@ public class LutaState extends BasicGameState {
 			if(input.isKeyDown(Input.KEY_ENTER)){
 				aleatorio = new Random().nextInt(3);
 				enemy.subHp(player.attack((Arma)listaArmas[armaEscolhida]));
-				player.subHp(enemy.attack((Arma)listaArmasInimigo[aleatorio]));
+				if (enemy.isLife())
+					player.subHp(enemy.attack((Arma)listaArmasInimigo[aleatorio]));
 				rodadaOk = false;
 			}
 		}
 		
-		if(player.getHp()==0){
-			sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
+		if(!player.isLife()){
+			sbg.enterState(Jogo.gameOverState,new FadeOutTransition(), new FadeInTransition());
 		}
 		
-		if(enemy.getHp()==0){
+		if(!enemy.isLife()){
 			enemy=null;
-			sbg.enterState(1,new FadeOutTransition(), new FadeInTransition());
 			LutaState.stopMusica();
 			MapaState.playMusica();
+			sbg.enterState(Jogo.mapaState,new FadeOutTransition(), new FadeInTransition());
 		}
 	}
 
 	@Override
 	public int getID() {
-		return 3;
+		return state;
 	}
+	
 	public static void playMusica(){
 		musica.play(1,1);
 	}
