@@ -36,9 +36,10 @@ public class LutaState extends BasicGameState {
 	private Boolean turnoAtaque=false;
 	private static Music musica;
 	private boolean continuar=true;
-	
+	private int state;
 	
 	public LutaState(int state){
+		this.state = state;
 	}
 	
 	@Override
@@ -90,9 +91,9 @@ public class LutaState extends BasicGameState {
 		else{
 			g.drawString("Arma escolhida = " + (armaEscolhida+1), 180, 450);
 			if(!(continuar)){
-				g.drawString("Pressione ESPAÇO para terminar a rodada", 180, 430);
+				g.drawString("Pressione ESPACO para terminar a rodada", 180, 430);
 			}else
-				g.drawString("Pressione ENTER para iniciar a ação", 180, 430);
+				g.drawString("Pressione ENTER para iniciar a acao", 180, 430);
 		}
 		
 		
@@ -175,11 +176,11 @@ public class LutaState extends BasicGameState {
 				turnoAtaque = false;
 		}
 		
-		if(player.getHp()==0){
+		if(!player.isLife()){
 			sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
 		}
 		
-		if(enemy.getHp()==0){
+		if(!enemy.isLife()){
 			continuar = true;
 			enemy=null;
 			cont=0;
@@ -195,7 +196,7 @@ public class LutaState extends BasicGameState {
 
 	@Override
 	public int getID() {
-		return 3;
+		return state;
 	}
 	public static void playMusica(){
 		musica.play(1,1);
