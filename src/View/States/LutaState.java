@@ -110,29 +110,29 @@ public class LutaState extends BasicGameState {
 		}
 		
 		//Escolhendo as armas
-		if(input.isKeyDown(input.KEY_1)){
+		if(input.isKeyDown(Input.KEY_1)){
 			armaEscolhida = 0;
 			rodadaOk = true;
 		}
-		if(input.isKeyDown(input.KEY_2)){
+		if(input.isKeyDown(Input.KEY_2)){
 			armaEscolhida = 1;
 			rodadaOk = true;
 		}
-		if(input.isKeyDown(input.KEY_3)){
+		if(input.isKeyDown(Input.KEY_3)){
 			armaEscolhida = 2;
 			rodadaOk = true;
 		}
-		if(input.isKeyDown(input.KEY_4)){
+		if(input.isKeyDown(Input.KEY_4)){
 			armaEscolhida = 3;
 			rodadaOk = true;
 		}
-		if(input.isKeyDown(input.KEY_5)){
+		if(input.isKeyDown(Input.KEY_5)){
 			armaEscolhida = 4;
 			rodadaOk = true;
 		}
 		
 		if(rodadaOk){
-			if(input.isKeyDown(input.KEY_ENTER)){
+			if(input.isKeyDown(Input.KEY_ENTER)){
 				aleatorio = new Random().nextInt(3);
 				
 				playerAcertou=((Arma)listaArmasInimigo[aleatorio]).attack();
