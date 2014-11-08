@@ -4,6 +4,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -32,6 +33,8 @@ public class MapaState extends BasicGameState {
 	private Animation sprite;
 	private float x = 20f, y = 20f;
 	
+	private static Music musica;
+	
 	public MapaState(int state){
 	}
 
@@ -42,6 +45,7 @@ public class MapaState extends BasicGameState {
 		bloqueado = new Bloqueado(map);
 		bau = new Bau(2, map.getMap(), bloqueado.getBloqueado());
 		inimigo = new Inimigo(4, map.getMap(), bloqueado.getBloqueado());
+		musica = new Music("musicas/Mapa.wav");
 	}
 
 	@Override
@@ -84,6 +88,8 @@ public class MapaState extends BasicGameState {
 		if (inimigo.temInimigo(x, y)){
 			enemy = inimigo.getPosicao(x, y);
 			sbg.enterState(3, new FadeOutTransition(), new RotateTransition());
+			MapaState.stopMusica();
+			LutaState.playMusica();
 		}
 		
 		if(input.isKeyDown(Input.KEY_A) && !bau.getPosicao(x, y).bauAberto()){
@@ -134,5 +140,13 @@ public class MapaState extends BasicGameState {
 	
 	public static Classe<?> getEnemy(){
 		return enemy;
+	}
+	
+	public static void playMusica(){
+		musica.play(1,1);
+	}
+	
+	public static void stopMusica(){
+		musica.stop();
 	}
 }

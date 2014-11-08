@@ -4,11 +4,14 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
+
+import java.util.Random;
 
 import Interfaces.IClasse;
 import Main.Classe;
@@ -21,6 +24,12 @@ public class LutaState extends BasicGameState {
 	private Classe<?> enemy;
 	private Image imagemBackground;
 	private IClasse[] listaArmas;
+	private IClasse[] listaArmasInimigo;
+	private int armaEscolhida;
+	private int aleatorio;
+	private Boolean rodadaOk=false;
+	
+	private static Music musica;
 	
 	public LutaState(int state){
 	}
@@ -28,6 +37,7 @@ public class LutaState extends BasicGameState {
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1)throws SlickException {
 		imagemBackground = new Image("imagens/lutaBackground.png");
+		musica = new Music("musicas/op2Batalha.wav");
 	}
 
 	@Override
@@ -49,6 +59,7 @@ public class LutaState extends BasicGameState {
 		
 		// Desenha as armas
 		listaArmas = (IClasse[]) player.getArmas();
+		listaArmasInimigo = (IClasse[]) enemy.getArmas();
 		int x = 0;
 		for(int i = 0; i < listaArmas.length; i++){
 			if (listaArmas[i] != null){
@@ -57,6 +68,13 @@ public class LutaState extends BasicGameState {
 				g.drawString("[PRESS " + numero + "]", (x + 40 * (i + 1)), 487);
 				x += 80;
 			}
+		}
+		
+		if(!(rodadaOk)){
+			g.drawString("Escolha a sua arma ", 180, 450);
+		}else{
+			g.drawString("Arma escolhida = " + (armaEscolhida+1), 180, 450);
+			g.drawString("Pressione ENTER para atacar", 180, 430);
 		}
 
 		// Desenha a vida
@@ -70,10 +88,45 @@ public class LutaState extends BasicGameState {
 		if(input.isKeyDown(Input.KEY_ESCAPE)){
 			sbg.enterState(6, new FadeOutTransition(), new FadeInTransition());
 		}
+		
+		//Escolhendo as armas
+		if(input.isKeyDown(input.KEY_1)){
+			armaEscolhida = 0;
+			rodadaOk = true;
+		}
+		if(input.isKeyDown(input.KEY_2)){
+			armaEscolhida = 1;
+			rodadaOk = true;
+		}
+		if(input.isKeyDown(input.KEY_3)){
+			armaEscolhida = 2;
+			rodadaOk = true;
+		}
+		
+		if(rodadaOk){
+			if(input.isKeyDown(input.KEY_ENTER)){
+				aleatorio = new Random().nextInt(3);
+				player.subHp(((Arma)listaArmasInimigo[aleatorio]).attack());
+				enemy.subHp(((Arma)listaArmas[armaEscolhida]).attack());
+				rodadaOk = false;
+			}
+		}
+		
+		if(player.getHp()==0){
+			sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
+		}
+		
 	}
 
 	@Override
 	public int getID() {
 		return 3;
+	}
+	public static void playMusica(){
+		musica.play(1,1);
+	}
+	
+	public static void stopMusica(){
+		musica.stop();
 	}
 }
