@@ -32,11 +32,13 @@ public class LutaState extends BasicGameState {
 	private int armaEscolhida;
 	private int aleatorio;
 	private Boolean rodadaOk=false;
+	private int cont;
+	private Boolean turnoAtaque=false;
 	private static Music musica;
-	private int state;
+	private boolean continuar=true;
+	
 	
 	public LutaState(int state){
-		this.state = state;
 	}
 	
 	@Override
@@ -75,7 +77,9 @@ public class LutaState extends BasicGameState {
 					ArmaFogo armaFogo = (ArmaFogo)listaArmas[i];
 					g.drawString(""+armaFogo.getMunicao(), x+40*(i+1), 580);
 				}catch(Exception e){
+					
 				}
+				
 				x += 80;
 			}
 		}
@@ -85,16 +89,27 @@ public class LutaState extends BasicGameState {
 		}
 		else{
 			g.drawString("Arma escolhida = " + (armaEscolhida+1), 180, 450);
-			g.drawString("Pressione ENTER para atacar", 180, 430);
-			
+			if(!(continuar)){
+				g.drawString("Pressione ESPAÇO para terminar a rodada", 180, 430);
+			}else
+				g.drawString("Pressione ENTER para iniciar a ação", 180, 430);
+		}
+		
+		
+		if(cont==1){
 			if(playerAcertou == 0){
 				g.drawString("ERROU!", 100, 100);
-			}
+			}else
+				g.drawString("HIT! = "+playerAcertou  , 100, 100);
+		}
 			
+		if(cont==2){
 			if(enemyAcertou == 0){
 				g.drawString("ERROU!", 500, 100);
-			}
+			}else
+				g.drawString("HIT! = "+enemyAcertou  , 500, 100);
 		}
+		
 		g.setColor(Color.black);
 
 		// Desenha a vida
@@ -110,54 +125,78 @@ public class LutaState extends BasicGameState {
 		}
 		
 		//Escolhendo as armas
-		if(input.isKeyDown(Input.KEY_1)){
+		if(input.isKeyDown(Input.KEY_1)&&!(turnoAtaque)){
 			armaEscolhida = 0;
 			rodadaOk = true;
 		}
-		if(input.isKeyDown(Input.KEY_2)){
+		if(input.isKeyDown(Input.KEY_2)&&!(turnoAtaque)){
 			armaEscolhida = 1;
 			rodadaOk = true;
 		}
-		if(input.isKeyDown(Input.KEY_3)){
+		if(input.isKeyDown(Input.KEY_3)&&!(turnoAtaque)){
 			armaEscolhida = 2;
 			rodadaOk = true;
 		}
-		if(input.isKeyDown(Input.KEY_4)){
+		if(input.isKeyDown(Input.KEY_4)&&!(turnoAtaque)){
 			armaEscolhida = 3;
 			rodadaOk = true;
 		}
-		if(input.isKeyDown(Input.KEY_5)){
+		if(input.isKeyDown(Input.KEY_5)&&!(turnoAtaque)){
 			armaEscolhida = 4;
 			rodadaOk = true;
 		}
 		
-		if(rodadaOk){
-			if(input.isKeyDown(Input.KEY_ENTER)){
-				aleatorio = new Random().nextInt(3);
-				enemy.subHp(player.attack((Arma)listaArmas[armaEscolhida]));
-				if (enemy.isLife())
-					player.subHp(enemy.attack((Arma)listaArmasInimigo[aleatorio]));
+		if(input.isKeyDown(Input.KEY_ENTER) && rodadaOk){
+			turnoAtaque = true;
+			aleatorio = new Random().nextInt(3);
+		}
+		
+		if(input.isKeyDown(Input.KEY_SPACE)){
+			continuar=true;
+		}
+		
+		if(input.isKeyDown(Input.KEY_ENTER) && turnoAtaque && cont==0 && continuar){
+			cont+=1;
+			playerAcertou=(player.attack((Arma)listaArmas[armaEscolhida]));
+			enemy.subHp(playerAcertou);
+			continuar=false;
+		}
+			
+		if(input.isKeyDown(Input.KEY_ENTER) && turnoAtaque && cont==1 && continuar){
+			enemyAcertou=(enemy.attack((Arma)listaArmasInimigo[aleatorio]));
+			player.subHp(enemyAcertou);
+			cont+=1;
+			continuar=false;
+		}
+		if(input.isKeyDown(Input.KEY_ENTER) && turnoAtaque && cont==2 && continuar){
 				rodadaOk = false;
-			}
+				cont=0;
+				continuar = true;
+				turnoAtaque = false;
 		}
 		
-		if(!player.isLife()){
-			sbg.enterState(Jogo.gameOverState,new FadeOutTransition(), new FadeInTransition());
+		if(player.getHp()==0){
+			sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
 		}
 		
-		if(!enemy.isLife()){
+		if(enemy.getHp()==0){
+			continuar = true;
 			enemy=null;
+			cont=0;
+			turnoAtaque=false;
+			rodadaOk=false;
 			LutaState.stopMusica();
 			MapaState.playMusica();
-			sbg.enterState(Jogo.mapaState,new FadeOutTransition(), new FadeInTransition());
+			
+			sbg.enterState(1,new FadeOutTransition(), new FadeInTransition());
 		}
+		
 	}
 
 	@Override
 	public int getID() {
-		return state;
+		return 3;
 	}
-	
 	public static void playMusica(){
 		musica.play(1,1);
 	}
