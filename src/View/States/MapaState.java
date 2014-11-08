@@ -47,7 +47,7 @@ public class MapaState extends BasicGameState {
 		map = new Mapa();
 		bloqueado = new Bloqueado(map);
 		bau = new Bau(2, map.getMap(), bloqueado.getBloqueado());
-		inimigo = new Inimigo(4, map.getMap(), bloqueado.getBloqueado());
+		inimigo = new Inimigo(1, map.getMap(), bloqueado.getBloqueado());
 		musica = new Music("musicas/Mapa.wav");
 	}
 
@@ -102,6 +102,18 @@ public class MapaState extends BasicGameState {
 		if(input.isKeyDown(Input.KEY_A) && !bau.getPosicao(x, y).bauAberto()){
 			bau.getPosicao(x, y).setAchouBau(bau.SortearItemBau(classe, bau.getPosicao(x, y)));
 			bau.getPosicao(x, y).abrirBau();
+		}
+		
+		boolean mortos = false;
+		for(int j=0; j<inimigo.getPosicao().length; j++){
+			if (inimigo.getPosicao()[j].getClasse().isLife()){
+				mortos = true;
+			}
+		}
+		if (mortos == false){
+			MapaState.stopMusica();
+			Creditos.playMusica();
+			sbg.enterState(Jogo.creditos, new FadeOutTransition(), new FadeInTransition());
 		}
 	}
 
