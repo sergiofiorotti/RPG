@@ -1,5 +1,6 @@
 package View.States;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Music;
@@ -23,23 +24,36 @@ public class Creditos extends BasicGameState {
 		musica = new Music("musicas/Mapa.wav");
 	}
 
+	private int creditos = 0;
+	
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
-		
-		g.drawString("GALAXY DESTINY", 300, 100);
-		g.drawString("Diretor de Audio                 Leonardo Biazoto",100,300);
-		
-		g.drawString("GALAXY DESTINY", 300, 100);
-		g.drawString("Diretor de Desenvolvimento       Sergio Fiorotti",100,300);
-		
-		g.drawString("GALAXY DESTINY", 300, 100);
-		g.drawString("Diretor de Artes                 Felippe Miguel",100,300);
+		g.setColor(Color.white);
+		switch (creditos) {
+			case 1:
+				g.drawString("GALAXY DESTINY", 300, 100);
+				g.drawString("Diretor de Artes                 Felippe Miguel",100,300);
+				break;
+			case 2:
+				g.drawString("GALAXY DESTINY", 300, 100);
+				g.drawString("Diretor de Audio                 Leonardo Biazoto",100,300);
+				break;
+			case 3:
+				g.drawString("GALAXY DESTINY", 300, 100);
+				g.drawString("Diretor de Desenvolvimento       Sergio Fiorotti",100,300);
+				break;
+			case 4: 
+				gc.exit();
+		}
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int i)
 			throws SlickException {
+		
+		gc.sleep(5000);
+		creditos++;
 	}
 
 	@Override
