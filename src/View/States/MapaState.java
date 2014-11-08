@@ -85,7 +85,11 @@ public class MapaState extends BasicGameState {
 			}
 		}
 		
-		if (inimigo.temInimigo(x, y)){
+		if(!(classe.isLife())){
+			sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
+		}
+		
+		if (inimigo.temInimigo(x, y) && inimigo.getPosicao(x,y).isLife()){
 			enemy = inimigo.getPosicao(x, y);
 			sbg.enterState(3, new FadeOutTransition(), new RotateTransition());
 			MapaState.stopMusica();
@@ -115,7 +119,8 @@ public class MapaState extends BasicGameState {
 		
 		// Desenha o inimigo na tela
 		for(int i=0; i < inimigo.getQuantidade(); i++){
-			g.drawImage(inimigo.getPosicao()[i].getClasse().getAnimacao().getImage(), inimigo.getPosicao()[i].getX(), inimigo.getPosicao()[i].getY());
+			if(inimigo.getPosicao()[i].getClasse().isLife())
+				g.drawImage(inimigo.getPosicao()[i].getClasse().getAnimacao().getImage(), inimigo.getPosicao()[i].getX(), inimigo.getPosicao()[i].getY());
 		}
 		
 		// Desenha os baús

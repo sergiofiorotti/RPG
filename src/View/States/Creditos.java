@@ -24,22 +24,20 @@ public class Creditos extends BasicGameState {
 		
 		g.drawString("GALAXY DESTINY", 300, 100);
 		g.drawString("Diretor de áudio                 Leonardo Biazoto",100,300);
-		esperar();
-		g.clear();
-		
+		gc.sleep(10000);
 		g.drawString("GALAXY DESTINY", 300, 100);
 		g.drawString("Diretor de Desenvolvimento       Sergio Fiorotti",100,300);
-		esperar();
-		g.clear();
-		
+		gc.sleep(10000);
 		g.drawString("GALAXY DESTINY", 300, 100);
 		g.drawString("Diretor de Artes                 Felippe Miguel",100,300);
-		esperar();
+		gc.sleep(10000);
 	}
 
 	@Override
-	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
+	public void update(GameContainer gc, StateBasedGame sbg, int i)
 			throws SlickException {
+		
+		
 	}
 
 	@Override
@@ -47,9 +45,9 @@ public class Creditos extends BasicGameState {
 		return 8;
 	}
 	
-	public void esperar(){
+	public void esperar(int i){
 		try {
-		    Thread.sleep(1000);                 //1000 milliseconds is one second.
+		    Thread.sleep(i);                 //1000 milliseconds is one second.
 		} catch(InterruptedException ex) {
 		    Thread.currentThread().interrupt();
 		}

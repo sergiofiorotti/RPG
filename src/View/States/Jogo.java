@@ -21,6 +21,10 @@ public class Jogo extends StateBasedGame {
 	private static final int inicio = 7;
 	private static final int creditos = 8;
 	
+	private static AppGameContainer appgc;
+	
+	
+	
 	public Jogo(String gameName){
 		super(gameName);
 		this.addState(new MenuState(menuState));
@@ -35,6 +39,7 @@ public class Jogo extends StateBasedGame {
 	}
 	
 	public void initStatesList(GameContainer gc) throws SlickException {
+		
 		this.getState(menuState).init(gc, this);
 		this.getState(mapaState).init(gc, this);
 		this.getState(lutaState).init(gc, this);
@@ -49,7 +54,8 @@ public class Jogo extends StateBasedGame {
 	
 	public static void main(String[] args)
 	{
-		AppGameContainer appgc;
+		
+		
 		try
 		{
 			appgc= new AppGameContainer(new Jogo(gameName));
@@ -60,6 +66,10 @@ public class Jogo extends StateBasedGame {
 		{
 			Logger.getLogger(Jogo.class.getName()).log(Level.SEVERE, null, ex);
 		}
+	}
+	
+	public static void reiniciar() throws SlickException{
+		appgc.exit();
 	}
 }
 

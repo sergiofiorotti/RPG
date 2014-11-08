@@ -1,5 +1,6 @@
 package View.States;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -24,6 +25,7 @@ public class GameOverState extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		
+		g.setColor(Color.white);
 		g.drawString(". . . GAME OVER . . .", 300, 300);
 		
 	}
@@ -32,14 +34,9 @@ public class GameOverState extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame sbg, int i)
 			throws SlickException {
 		
-		try {
-		    Thread.sleep(1000);                 //1000 milliseconds is one second.
-		} catch(InterruptedException ex) {
-		    Thread.currentThread().interrupt();
-		}
+		gc.sleep(2000);
 		LutaState.stopMusica();
-		sbg.enterState(8,new FadeOutTransition(), new FadeInTransition());
-		
+		Jogo.reiniciar();
 		
 		
 	}

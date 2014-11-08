@@ -1,5 +1,6 @@
 package View.States;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -16,11 +17,14 @@ import java.util.Random;
 import Interfaces.IClasse;
 import Main.Classe;
 import Armas.Arma;
+import Armas.ArmaFogo;
 
 
 public class LutaState extends BasicGameState {
 
 	private Classe<?> player;
+	private int playerAcertou;
+	private int enemyAcertou;
 	private Classe<?> enemy;
 	private Image imagemBackground;
 	private IClasse[] listaArmas;
@@ -47,7 +51,7 @@ public class LutaState extends BasicGameState {
 		g.drawImage(imagemBackground, 0, 0);
 		
 		// Desenha o inimigo
-		if (enemy != null)
+		if (enemy != null && enemy.isLife())
 			g.drawImage(enemy.getImagem(), (int)500, (int)200);
 		else{
 			enemy = MapaState.getEnemy();
@@ -66,6 +70,13 @@ public class LutaState extends BasicGameState {
 				g.drawImage(((Arma)listaArmas[i]).getImagem(), (x + 40 * (i + 1)), 500);
 				int numero = i + 1;
 				g.drawString("[PRESS " + numero + "]", (x + 40 * (i + 1)), 487);
+				try{
+					ArmaFogo armaFogo = (ArmaFogo)listaArmas[i];
+					g.drawString(""+armaFogo.getMunicao(), x+40*(i+1), 580);
+				}catch(Exception e){
+					
+				}
+				
 				x += 80;
 			}
 		}
@@ -75,7 +86,16 @@ public class LutaState extends BasicGameState {
 		}else{
 			g.drawString("Arma escolhida = " + (armaEscolhida+1), 180, 450);
 			g.drawString("Pressione ENTER para atacar", 180, 430);
+			
+			if(playerAcertou == 0){
+				g.drawString("ERROU!", 100, 100);
+			}
+			
+			if(enemyAcertou == 0){
+				g.drawString("ERROU!", 500, 100);
+			}
 		}
+		g.setColor(Color.black);
 
 		// Desenha a vida
 		g.drawString("VIDA = " + player.getHp(), 50, 450);
@@ -102,18 +122,37 @@ public class LutaState extends BasicGameState {
 			armaEscolhida = 2;
 			rodadaOk = true;
 		}
+		if(input.isKeyDown(input.KEY_4)){
+			armaEscolhida = 3;
+			rodadaOk = true;
+		}
+		if(input.isKeyDown(input.KEY_5)){
+			armaEscolhida = 4;
+			rodadaOk = true;
+		}
 		
 		if(rodadaOk){
 			if(input.isKeyDown(input.KEY_ENTER)){
 				aleatorio = new Random().nextInt(3);
-				player.subHp(((Arma)listaArmasInimigo[aleatorio]).attack());
-				enemy.subHp(((Arma)listaArmas[armaEscolhida]).attack());
+				
+				playerAcertou=((Arma)listaArmasInimigo[aleatorio]).attack();
+				enemyAcertou=((Arma)listaArmas[armaEscolhida]).attack();
+				player.subHp(enemyAcertou);
+				enemy.subHp(playerAcertou);
 				rodadaOk = false;
 			}
 		}
 		
 		if(player.getHp()==0){
 			sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
+		}
+		
+		if(enemy.getHp()==0){
+			enemy=null;
+			sbg.enterState(1,new FadeOutTransition(), new FadeInTransition());
+			LutaState.stopMusica();
+			MapaState.playMusica();
+			
 		}
 		
 	}

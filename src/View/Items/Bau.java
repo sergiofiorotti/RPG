@@ -17,7 +17,7 @@ public class Bau {
 		
 		this.quantidade = quantidade;
 		posicao = new BauModel[quantidade];
-		SortearPosicaoBau(map, bloqueado);;
+		SortearPosicaoBau(map, bloqueado);
 		
 		bau = new Boolean[map.getWidth()][map.getHeight()];
 		BauMapa(map);
