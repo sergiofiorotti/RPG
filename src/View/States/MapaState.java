@@ -1,11 +1,16 @@
 package View.States;
 
+
+import java.awt.Font;
+
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
@@ -35,7 +40,10 @@ public class MapaState extends BasicGameState {
 	
 	private static Music musica;
 	
+	private int state;
+	
 	public MapaState(int state){
+		this.state = state;
 	}
 
 	@Override
@@ -43,14 +51,13 @@ public class MapaState extends BasicGameState {
 			throws SlickException {
 		map = new Mapa();
 		bloqueado = new Bloqueado(map);
-		bau = new Bau(2, map.getMap(), bloqueado.getBloqueado());
+		bau = new Bau(50, map.getMap(), bloqueado.getBloqueado());
 		inimigo = new Inimigo(4, map.getMap(), bloqueado.getBloqueado());
 		musica = new Music("musicas/Mapa.wav");
 	}
 
 	@Override
-	public void update(GameContainer gc, StateBasedGame sbg, int i)
-			throws SlickException {
+	public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
 		Input input = gc.getInput();
 		if(input.isKeyDown(Input.KEY_ESCAPE)){
 			sbg.enterState(4, new FadeOutTransition(), new FadeInTransition());
@@ -85,7 +92,7 @@ public class MapaState extends BasicGameState {
 			}
 		}
 		
-		if(!(classe.isLife())){
+		if(!classe.isLife()){
 			sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
 		}
 		
@@ -131,16 +138,22 @@ public class MapaState extends BasicGameState {
 		/* Passou por cima de um baú sinaliza uma mensagem 
 		se o baú está aberto ou fechado */
 		if (bau.temBau(x, y)){
-			if (!bau.getPosicao(x, y).bauAberto())
-				g.drawString("Bau fechado! [PRESS A]", x - 100, y + 20);
-			else
-				g.drawString(bau.getPosicao(x, y).getAchouBau(), x - 50, y + 20);
+			g.setColor(Color.black);
+			if (!bau.getPosicao(x, y).bauAberto()){
+				String s = "Bau fechado! [PRESS A]";
+				g.drawString(s, bau.acertarMensagemBauX((int)x, g.getFont().getWidth(s)), bau.acertarMensagemBauY((int)y, g.getFont().getHeight(s)));
+			}
+			else{
+				String s = bau.getPosicao(x, y).getAchouBau();
+				g.drawString(bau.getPosicao(x, y).getAchouBau(), bau.acertarMensagemBauX((int)x, g.getFont().getWidth(s)), bau.acertarMensagemBauY((int)y, g.getFont().getHeight(s)));
+			}
 		}
+		
 	}
 
 	@Override
 	public int getID() {
-		return 1;
+		return state;
 	}
 	
 	public static Classe<?> getEnemy(){
