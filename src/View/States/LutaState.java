@@ -101,14 +101,14 @@ public class LutaState extends BasicGameState {
 			if(playerAcertou == 0){
 				g.drawString("ERROU!", 100, 100);
 			}else
-				g.drawString("HIT! = "+playerAcertou  , 100, 100);
+				g.drawString("HIT! = "+playerAcertou, 100, 100);
 		}
 			
 		if(cont==2){
 			if(enemyAcertou == 0){
 				g.drawString("ERROU!", 500, 100);
 			}else
-				g.drawString("HIT! = "+enemyAcertou  , 500, 100);
+				g.drawString("HIT! = "+enemyAcertou, 500, 100);
 		}
 		
 		g.setColor(Color.black);
@@ -118,12 +118,12 @@ public class LutaState extends BasicGameState {
 		g.drawString("VIDA = " + enemy.getHp(), 500, 450);
 		
 		if(!player.isLife()){
-			g.drawString("VOCÊ MORREU", 300, 200);
+			g.drawString("VOCï¿½ MORREU", 300, 200);
 			g.drawString("APERTE ESPACO",300,215);
 		}
 		
 		if(!enemy.isLife()){
-			g.drawString("VOCÊ VENCEU!", 300, 200);
+			g.drawString("VOCï¿½ VENCEU!", 300, 200);
 			g.drawString("APERTE ESPACO",300,215);
 		}
 	}
