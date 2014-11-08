@@ -119,6 +119,7 @@ public class LutaState extends BasicGameState {
 		
 		if(!player.isLife()){
 			g.drawString("VOCÊ MORREU", 300, 200);
+			g.drawString("APERTE ESPACO",300,215);
 		}
 		
 		if(!enemy.isLife()){
