@@ -5,12 +5,10 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.state.transition.FadeInTransition;
-import org.newdawn.slick.state.transition.FadeOutTransition;
 
-public class GameOverState extends BasicGameState {
+public class Creditos extends BasicGameState {
 	
-	public GameOverState(int state){
+	public Creditos(int state){
 		
 	}
 
@@ -24,28 +22,37 @@ public class GameOverState extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		
-		g.drawString(". . . GAME OVER . . .", 300, 300);
+		g.drawString("GALAXY DESTINY", 300, 100);
+		g.drawString("Diretor de áudio                 Leonardo Biazoto",100,300);
+		esperar();
+		g.clear();
 		
+		g.drawString("GALAXY DESTINY", 300, 100);
+		g.drawString("Diretor de Desenvolvimento       Sergio Fiorotti",100,300);
+		esperar();
+		g.clear();
+		
+		g.drawString("GALAXY DESTINY", 300, 100);
+		g.drawString("Diretor de Artes                 Felippe Miguel",100,300);
+		esperar();
 	}
 
 	@Override
-	public void update(GameContainer gc, StateBasedGame sbg, int i)
+	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
 			throws SlickException {
-		
+	}
+
+	@Override
+	public int getID() {
+		return 8;
+	}
+	
+	public void esperar(){
 		try {
 		    Thread.sleep(1000);                 //1000 milliseconds is one second.
 		} catch(InterruptedException ex) {
 		    Thread.currentThread().interrupt();
 		}
-		LutaState.stopMusica();
-		sbg.enterState(8,new FadeOutTransition(), new FadeInTransition());
 		
-		
-		
-	}
-
-	@Override
-	public int getID() {
-		return 2;
 	}
 }
