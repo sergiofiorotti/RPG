@@ -14,7 +14,7 @@ import Main.Classe;
 final public class Engenheiro extends Classe<IEngenheiro>{
 	
 	public Engenheiro() throws SlickException{
-		super(200, 50, new Image("imagens/personagens/asiatico.png"));
+		super(200*5, 50, new Image("imagens/personagens/asiatico.png"));
 		
 		armas = new IEngenheiro[5];
 		armas[0] = new Granada();

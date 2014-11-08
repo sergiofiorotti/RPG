@@ -116,6 +116,15 @@ public class LutaState extends BasicGameState {
 		// Desenha a vida
 		g.drawString("VIDA = " + player.getHp(), 50, 450);
 		g.drawString("VIDA = " + enemy.getHp(), 500, 450);
+		
+		if(!player.isLife()){
+			g.drawString("VOCÊ MORREU", 300, 200);
+		}
+		
+		if(!enemy.isLife()){
+			g.drawString("VOCÊ VENCEU!", 300, 200);
+			g.drawString("APERTE ESPACO",300,215);
+		}
 	}
 
 	@Override
@@ -177,6 +186,7 @@ public class LutaState extends BasicGameState {
 		}
 		
 		if(!player.isLife()){
+			if(input.isKeyDown(Input.KEY_SPACE))
 			sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
 		}
 		
@@ -188,7 +198,7 @@ public class LutaState extends BasicGameState {
 			rodadaOk=false;
 			LutaState.stopMusica();
 			MapaState.playMusica();
-			
+			if(input.isKeyDown(Input.KEY_SPACE))
 			sbg.enterState(1,new FadeOutTransition(), new FadeInTransition());
 		}
 		
