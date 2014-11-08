@@ -82,7 +82,8 @@ public class LutaState extends BasicGameState {
 		
 		if(!(rodadaOk)){
 			g.drawString("Escolha a sua arma ", 180, 450);
-		}else{
+		}
+		else{
 			g.drawString("Arma escolhida = " + (armaEscolhida+1), 180, 450);
 			g.drawString("Pressione ENTER para atacar", 180, 430);
 			
