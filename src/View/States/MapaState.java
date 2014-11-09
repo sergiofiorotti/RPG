@@ -99,7 +99,7 @@ public class MapaState extends BasicGameState {
 			sbg.enterState(Jogo.lutaState, new FadeOutTransition(), new RotateTransition());
 		}
 		
-		if(input.isKeyDown(Input.KEY_A) && !bau.getPosicao(x, y).bauAberto()){
+		if(input.isKeyDown(Input.KEY_A) && !(bau.getPosicao(x, y).bauAberto())){
 			bau.getPosicao(x, y).setAchouBau(bau.SortearItemBau(classe, bau.getPosicao(x, y)));
 			bau.getPosicao(x, y).abrirBau();
 		}

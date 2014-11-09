@@ -35,7 +35,6 @@ public class LutaState extends BasicGameState {
 	private int cont;
 	private Boolean turnoAtaque=false;
 	private static Music musica;
-	private boolean continuar=true;
 	private int state;
 	
 	public LutaState(int state){
@@ -73,7 +72,7 @@ public class LutaState extends BasicGameState {
 			if (listaArmas[i] != null){
 				g.drawImage(((Arma)listaArmas[i]).getImagem(), (x + 40 * (i + 1)), 500);
 				int numero = i + 1;
-				g.drawString("[PRESS " + numero + "]", (x + 40 * (i + 1)), 487);
+				g.drawString("[PRESS " + numero + "]", (x + 40 * (i + 1)), 495);
 				try{
 					ArmaFogo armaFogo = (ArmaFogo)listaArmas[i];
 					g.drawString(""+armaFogo.getMunicao(), x+40*(i+1), 580);
@@ -88,14 +87,13 @@ public class LutaState extends BasicGameState {
 		if(!(rodadaOk)){
 			g.drawString("Escolha a sua arma ", 180, 450);
 		}
-		else{
+		else if(!(turnoAtaque)){
 			g.drawString("Arma escolhida = " + (armaEscolhida+1), 180, 450);
-			if(!(continuar)){
-				g.drawString("Pressione ESPACO para terminar a rodada", 180, 430);
-			}else
-				g.drawString("Pressione ENTER para iniciar a acao", 180, 430);
+			g.drawString("Pressione ENTER para iniciar a acao", 180, 430);
+		}else{
+			g.drawString("", 180, 450);
+			g.drawString("", 180, 430);
 		}
-		
 		
 		if(cont==1){
 			if(playerAcertou == 0){
@@ -137,53 +135,58 @@ public class LutaState extends BasicGameState {
 		
 		//Escolhendo as armas
 		if(input.isKeyDown(Input.KEY_1)&&!(turnoAtaque)){
-			armaEscolhida = 0;
-			rodadaOk = true;
+			if (listaArmas[0] != null){
+				armaEscolhida = 0;
+				rodadaOk = true;
+			}
 		}
 		if(input.isKeyDown(Input.KEY_2)&&!(turnoAtaque)){
-			armaEscolhida = 1;
-			rodadaOk = true;
+			if (listaArmas[1] != null){
+				armaEscolhida = 1;
+				rodadaOk = true;
+			}
 		}
 		if(input.isKeyDown(Input.KEY_3)&&!(turnoAtaque)){
-			armaEscolhida = 2;
-			rodadaOk = true;
+			if (listaArmas[2] != null){
+				armaEscolhida = 2;
+				rodadaOk = true;
+			}
 		}
 		if(input.isKeyDown(Input.KEY_4)&&!(turnoAtaque)){
-			armaEscolhida = 3;
-			rodadaOk = true;
+			if (listaArmas[3] != null){
+				armaEscolhida = 3;
+				rodadaOk = true;
+			}
 		}
 		if(input.isKeyDown(Input.KEY_5)&&!(turnoAtaque)){
-			armaEscolhida = 4;
-			rodadaOk = true;
+			if (listaArmas[4] != null){
+				armaEscolhida = 4;
+				rodadaOk = true;
+			}
 		}
 		
 		if(input.isKeyDown(Input.KEY_ENTER) && rodadaOk){
-			turnoAtaque = true;
+			turnoAtaque=true;
 			aleatorio = new Random().nextInt(3);
 		}
 		
-		if(input.isKeyDown(Input.KEY_SPACE)){
-			continuar=true;
-		}
-		
-		if(input.isKeyDown(Input.KEY_ENTER) && turnoAtaque && cont==0 && continuar){
+		if(turnoAtaque){
 			cont+=1;
-			playerAcertou=(player.attack((Arma)listaArmas[armaEscolhida]));
-			enemy.subHp(playerAcertou);
-			continuar=false;
-		}
+			gc.sleep(2000);
 			
-		if(input.isKeyDown(Input.KEY_ENTER) && turnoAtaque && cont==1 && continuar){
-			enemyAcertou=(enemy.attack((Arma)listaArmasInimigo[aleatorio]));
-			player.subHp(enemyAcertou);
-			cont+=1;
-			continuar=false;
-		}
-		if(input.isKeyDown(Input.KEY_ENTER) && turnoAtaque && cont==2 && continuar){
+			if (cont==1){
+				playerAcertou=(player.attack((Arma)listaArmas[armaEscolhida]));
+				enemy.subHp(playerAcertou);
+			}
+			if(cont==2){
+				enemyAcertou=(enemy.attack((Arma)listaArmasInimigo[aleatorio]));
+				player.subHp(enemyAcertou);
+			}
+			if(cont==3){
 				rodadaOk = false;
+				turnoAtaque=false;
 				cont=0;
-				continuar = true;
-				turnoAtaque = false;
+			}
 		}
 		
 		if(!player.isLife()){
@@ -196,15 +199,16 @@ public class LutaState extends BasicGameState {
 		}
 		
 		if(!enemy.isLife()){
-			continuar = true;
 			enemy=null;
 			cont=0;
 			turnoAtaque=false;
 			rodadaOk=false;
-			LutaState.stopMusica();
-			MapaState.playMusica();
-			if(input.isKeyDown(Input.KEY_SPACE))
-			sbg.enterState(1,new FadeOutTransition(), new FadeInTransition());
+			
+			if(input.isKeyDown(Input.KEY_SPACE)){
+				LutaState.stopMusica();
+				MapaState.playMusica();
+				sbg.enterState(1,new FadeOutTransition(), new FadeInTransition());
+			}
 		}
 		
 	}

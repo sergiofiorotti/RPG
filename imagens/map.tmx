@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="20" tileheight="20">
- <tileset firstgid="1" name="grama" tilewidth="20" tileheight="20">
-  <image source="Grama.png" width="20" height="20"/>
- </tileset>
- <tileset firstgid="2" name="agua" tilewidth="20" tileheight="20">
-  <image source="agua.png" width="20" height="20"/>
-  <tile id="0">
-   <properties>
-    <property name="blocked" value="true"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="3" name="bau" tilewidth="20" tileheight="20">
+ <tileset firstgid="1" name="bau" tilewidth="20" tileheight="20">
   <image source="bau.png" width="20" height="20"/>
   <tile id="0">
    <properties>
@@ -19,9 +8,22 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="2" name="agua" tilewidth="20" tileheight="20">
+  <tile id="0">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+   <image width="20" height="20" source="invisible.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="3" name="grama" tilewidth="800" tileheight="600">
+  <tile id="0">
+   <image width="800" height="600" source="newMapa.png"/>
+  </tile>
+ </tileset>
  <layer name="Camada" width="40" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3OMQoAMAgEsLP/f7S7s1CEDNlTSYo1b/j98QMAAACua9L6KFTAEgAA
+   H4sIAAAAAAAAC+3SMQoAIAzFUPne/86uKhRxaoY86NAtlI4hSZKkH+kOkISUbYhSDEHVQu4j3i/XTkP7O51md8DDApxuvUrAEgAA
   </data>
  </layer>
 </map>
