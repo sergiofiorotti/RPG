@@ -39,6 +39,7 @@ public class Creditos extends BasicGameState {
 		musica = new Music("musicas/creditos.wav");
 		
 		artes = new Image("imagens/creditos/Arte.png");
+		
 		desenvolvimento = new Image("imagens/creditos/Desenvolvimento.png");
 		musicas = new Image("imagens/creditos/Musicas.png");
 		
@@ -50,13 +51,12 @@ public class Creditos extends BasicGameState {
 		
 		sergioNome = new Image("imagens/creditos/sergioNome.png");
 		sergioChar = new Image("imagens/creditos/sergio.png");
+
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
-		
-		
 		
 		g.setColor(Color.white);
 		switch (creditos) {

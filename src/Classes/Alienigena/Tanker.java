@@ -23,7 +23,7 @@ final public class Tanker extends Classe<ITanker>{
 		imagem = new Image("imagens/personagens/TankerG.png");
 	}
 	
-	public ITanker[] armas;
+	private ITanker[] armas;
 	
 	@Override
 	public ITanker[] getArmas() {

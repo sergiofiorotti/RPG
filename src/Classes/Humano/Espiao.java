@@ -23,7 +23,7 @@ final public class Espiao extends Classe<IEspiao>{
 		imagem = new Image("imagens/personagens/ChronoG.png");
 	}
 	
-	public IEspiao[] armas;
+	private IEspiao[] armas;
 	
 	@Override
 	public IEspiao[] getArmas() {

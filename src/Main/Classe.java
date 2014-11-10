@@ -14,6 +14,7 @@ public abstract class Classe<T>{
 		this.hp = hp;
 		this.forca = forca;
 		this.animacao = new Animacao(personagem);
+		chefao = false;
 	}
 	
 	protected int hp;
@@ -24,8 +25,18 @@ public abstract class Classe<T>{
 	
 	protected Image imagem;
 	
+	protected Boolean chefao;
+	
 	public Animacao getAnimacao(){
 		return animacao;
+	}
+	
+	public Boolean isChefao(){
+		return chefao;
+	}
+	
+	public void setChefao(Boolean chefao){
+		this.chefao = chefao;
 	}
 
 	public void subHp(int attack){
@@ -57,6 +68,10 @@ public abstract class Classe<T>{
 	
 	public Image getImagem(){
 		return imagem;
+	}
+	
+	public void setImage(Image imagem){
+		this.imagem = imagem;
 	}
 	
 	public int getHp(){
