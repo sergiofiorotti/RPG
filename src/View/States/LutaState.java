@@ -181,7 +181,7 @@ public class LutaState extends BasicGameState {
 		
 		if(turnoAtaque){
 			cont+=1;
-			gc.sleep(2000);
+			gc.sleep(1500);
 			
 			if (cont==1){
 				playerAcertou=(player.attack((Arma)listaArmas[armaEscolhida]));
