@@ -4,9 +4,9 @@ import Main.Classe;
 
 public class InimigoModel {
 
-	int x;
-	int y;
-	Classe<?> classe;
+	protected int x;
+	protected int y;
+	protected Classe<?> classe;
 	
 	public InimigoModel(int x, int y, Classe<?> classe){
 		this.x = x;

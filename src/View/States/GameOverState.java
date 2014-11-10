@@ -40,7 +40,7 @@ public class GameOverState extends BasicGameState {
 			throws SlickException {
 		gc.sleep(8000);
 		LutaState.stopMusica();
-		Jogo.reiniciar();
+		gc.exit();
 	}
 
 	@Override
