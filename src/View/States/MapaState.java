@@ -46,8 +46,8 @@ public class MapaState extends BasicGameState {
 			throws SlickException {
 		map = new Mapa();
 		bloqueado = new Bloqueado(map);
-		bau = new Bau(2, map.getMap(), bloqueado.getBloqueado());
-		inimigo = new Inimigo(1, map.getMap(), bloqueado.getBloqueado());
+		bau = new Bau(5, map.getMap(), bloqueado.getBloqueado());
+		inimigo = new Inimigo(5, map.getMap(), bloqueado.getBloqueado());
 		chefao = new Chefao(1, map.getMap(), bloqueado.getBloqueado());
 		musica = new Music("musicas/Mapa.wav");
 	}
