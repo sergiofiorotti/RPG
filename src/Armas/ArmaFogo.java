@@ -21,14 +21,10 @@ public class ArmaFogo extends Arma {
 	
 	public int attack(){
 		int precisao = new Random().nextInt(100);
-		
-		if (getMunicao() > 0)
-			subMunicao();
-		else
-			return 0;
-		
-		if (precisao <= this.precisao)
+		subMunicao();
+		if (precisao <= this.precisao && getMunicao() > 0){
 			return dano;
+		}
 		return 0;
 	}
 }

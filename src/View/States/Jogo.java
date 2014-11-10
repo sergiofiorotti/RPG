@@ -52,11 +52,12 @@ public class Jogo extends StateBasedGame {
 	
 	public static void main(String[] args)
 	{
+		
+		
 		try
 		{
 			appgc= new AppGameContainer(new Jogo(gameName));
 			appgc.setDisplayMode(800, 600, false);
-			appgc.setShowFPS(false);
 			appgc.start();
 		}
 		catch (SlickException ex)
@@ -65,12 +66,8 @@ public class Jogo extends StateBasedGame {
 		}
 	}
 	
-	public static void sair() throws SlickException{
-		appgc.exit();
-	}
-	
 	public static void reiniciar() throws SlickException{
-		main(null);
+		appgc.exit();
 	}
 }
 

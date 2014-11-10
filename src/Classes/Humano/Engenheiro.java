@@ -25,7 +25,7 @@ final public class Engenheiro extends Classe<IEngenheiro>{
 		imagem = new Image("imagens/personagens/AsiaticoG.png");
 	}
 	
-	private IEngenheiro[] armas;
+	public IEngenheiro[] armas;
 
 	@Override
 	public IEngenheiro[] getArmas() {

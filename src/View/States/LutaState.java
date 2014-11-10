@@ -22,26 +22,20 @@ import Armas.ArmaFogo;
 
 public class LutaState extends BasicGameState {
 
-	// Player
 	private Classe<?> player;
 	private int playerAcertou;
-	private IClasse[] listaArmas;
-	private int armaEscolhida;
-	
-	// Enemy
-	private Classe<?> enemy;
 	private int enemyAcertou;
-	private IClasse[] listaArmasInimigo;
-	
-	// Cenario
+	private Classe<?> enemy;
 	private Image imagemBackground;
+	private IClasse[] listaArmas;
+	private IClasse[] listaArmasInimigo;
+	private int armaEscolhida;
+	private int aleatorio;
+	private Boolean rodadaOk=false;
+	private int cont;
+	private Boolean turnoAtaque=false;
 	private static Music musica;
 	private int state;
-	
-	// Luta
-	private Boolean rodadaOk=false;
-	private Boolean turnoAtaque=false;
-	private int cont;
 	
 	public LutaState(int state){
 		this.state = state;
@@ -50,6 +44,7 @@ public class LutaState extends BasicGameState {
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1)throws SlickException {
 		imagemBackground = new Image("imagens/lutaBackground.jpg");
+		musica = new Music("musicas/op2Batalha.wav");
 	}
 
 	@Override
@@ -59,12 +54,8 @@ public class LutaState extends BasicGameState {
 		g.drawImage(imagemBackground, 0, 0);
 		
 		// Desenha o inimigo
-		if (enemy != null && enemy.isLife()){
-			if (!enemy.isChefao())
-				g.drawImage(enemy.getImagem(), 500, 200);
-			else
-				g.drawImage(MapaState.getChefao().getImageMaior(), 500, 200);
-		}
+		if (enemy != null && enemy.isLife())
+			g.drawImage(enemy.getImagem(), (int)500, (int)200);
 		else{
 			enemy = MapaState.getEnemy();
 		}
@@ -97,7 +88,7 @@ public class LutaState extends BasicGameState {
 			g.drawString("Escolha a sua arma ", 180, 450);
 		}
 		else if(!(turnoAtaque)){
-			g.drawString("Arma escolhida = " + (armaEscolhida + 1), 180, 450);
+			g.drawString("Arma escolhida = " + (armaEscolhida+1), 180, 450);
 			g.drawString("Pressione ENTER para iniciar a acao", 180, 430);
 		}else{
 			g.drawString("", 180, 450);
@@ -125,12 +116,12 @@ public class LutaState extends BasicGameState {
 		g.drawString("VIDA = " + enemy.getHp(), 500, 450);
 		
 		if(!player.isLife()){
-			g.drawString("VOCE MORREU!", 300, 200);
+			g.drawString("VOC� MORREU", 300, 200);
 			g.drawString("APERTE ESPACO",300,215);
 		}
 		
 		if(!enemy.isLife()){
-			g.drawString("VOCE VENCEU!", 300, 200);
+			g.drawString("VOC� VENCEU!", 300, 200);
 			g.drawString("APERTE ESPACO",300,215);
 		}
 	}
@@ -139,44 +130,44 @@ public class LutaState extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame sbg, int i)throws SlickException {
 		Input input = gc.getInput();
 		if(input.isKeyDown(Input.KEY_ESCAPE)){
-			sbg.enterState(Jogo.menuLutaState, new FadeOutTransition(), new FadeInTransition());
+			sbg.enterState(6, new FadeOutTransition(), new FadeInTransition());
 		}
 		
 		//Escolhendo as armas
-		if(input.isKeyDown(Input.KEY_1) && !(turnoAtaque)){
+		if(input.isKeyDown(Input.KEY_1)&&!(turnoAtaque)){
 			if (listaArmas[0] != null){
 				armaEscolhida = 0;
 				rodadaOk = true;
 			}
 		}
-		else if(input.isKeyDown(Input.KEY_2) && !(turnoAtaque)){
+		if(input.isKeyDown(Input.KEY_2)&&!(turnoAtaque)){
 			if (listaArmas[1] != null){
 				armaEscolhida = 1;
 				rodadaOk = true;
 			}
 		}
-		else if(input.isKeyDown(Input.KEY_3) && !(turnoAtaque)){
+		if(input.isKeyDown(Input.KEY_3)&&!(turnoAtaque)){
 			if (listaArmas[2] != null){
 				armaEscolhida = 2;
 				rodadaOk = true;
 			}
 		}
-		else if(input.isKeyDown(Input.KEY_4) && !(turnoAtaque)){
+		if(input.isKeyDown(Input.KEY_4)&&!(turnoAtaque)){
 			if (listaArmas[3] != null){
 				armaEscolhida = 3;
 				rodadaOk = true;
 			}
 		}
-		else if(input.isKeyDown(Input.KEY_5) && !(turnoAtaque)){
+		if(input.isKeyDown(Input.KEY_5)&&!(turnoAtaque)){
 			if (listaArmas[4] != null){
 				armaEscolhida = 4;
 				rodadaOk = true;
 			}
 		}
 		
-		int aleatorio = new Random().nextInt(3);
 		if(input.isKeyDown(Input.KEY_ENTER) && rodadaOk){
 			turnoAtaque=true;
+			aleatorio = new Random().nextInt(3);
 		}
 		
 		if(turnoAtaque){
@@ -187,11 +178,11 @@ public class LutaState extends BasicGameState {
 				playerAcertou=(player.attack((Arma)listaArmas[armaEscolhida]));
 				enemy.subHp(playerAcertou);
 			}
-			else if(cont==2){
+			if(cont==2){
 				enemyAcertou=(enemy.attack((Arma)listaArmasInimigo[aleatorio]));
 				player.subHp(enemyAcertou);
 			}
-			else if(cont==3){
+			if(cont==3){
 				rodadaOk = false;
 				turnoAtaque=false;
 				cont=0;
@@ -202,7 +193,8 @@ public class LutaState extends BasicGameState {
 			if(input.isKeyDown(Input.KEY_SPACE)){
 				LutaState.stopMusica();
 				GameOverState.playMusica();
-				sbg.enterState(Jogo.gameOverState, new FadeOutTransition(), new FadeInTransition());
+				sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
+				
 			}
 		}
 		
@@ -215,7 +207,7 @@ public class LutaState extends BasicGameState {
 			if(input.isKeyDown(Input.KEY_SPACE)){
 				LutaState.stopMusica();
 				MapaState.playMusica();
-				sbg.enterState(Jogo.mapaState, new FadeOutTransition(), new FadeInTransition());
+				sbg.enterState(1,new FadeOutTransition(), new FadeInTransition());
 			}
 		}
 		
@@ -225,19 +217,11 @@ public class LutaState extends BasicGameState {
 	public int getID() {
 		return state;
 	}
-	public static void playMusica() throws SlickException{
-		musica = new Music("musicas/op2Batalha.wav");
-		musica.play(1,1);
-	}
-	
-	public static void playMusicaChefao() throws SlickException{
-		musica = new Music("musicas/finalBoss.wav");
+	public static void playMusica(){
 		musica.play(1,1);
 	}
 	
 	public static void stopMusica(){
 		musica.stop();
 	}
-	
-	
 }

@@ -27,7 +27,6 @@ public class MapaState extends BasicGameState {
 	// Inimigos
 	private Inimigo inimigo;
 	private static Classe<?> enemy;
-	private static Chefao chefao;
 	
 	// Personagem
 	private Classe<?> classe;
@@ -35,6 +34,7 @@ public class MapaState extends BasicGameState {
 	private float x = 20f, y = 20f;
 	
 	private static Music musica;
+	
 	private int state;
 	
 	public MapaState(int state){
@@ -48,9 +48,9 @@ public class MapaState extends BasicGameState {
 		bloqueado = new Bloqueado(map);
 		bau = new Bau(2, map.getMap(), bloqueado.getBloqueado());
 		inimigo = new Inimigo(1, map.getMap(), bloqueado.getBloqueado());
-		chefao = new Chefao(1, map.getMap(), bloqueado.getBloqueado());
 		musica = new Music("musicas/Mapa.wav");
 	}
+
 	
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
@@ -99,13 +99,6 @@ public class MapaState extends BasicGameState {
 			sbg.enterState(Jogo.lutaState, new FadeOutTransition(), new RotateTransition());
 		}
 		
-		if (chefao.temChefao(x, y) && chefao.getPosicao(x, y).isLife()){
-			enemy = chefao.getPosicao()[0].getClasse();
-			MapaState.stopMusica();
-			LutaState.playMusicaChefao();
-			sbg.enterState(Jogo.lutaState, new FadeOutTransition(), new RotateTransition());
-		}
-		
 		if(input.isKeyDown(Input.KEY_A) && !(bau.getPosicao(x, y).bauAberto())){
 			bau.getPosicao(x, y).setAchouBau(bau.SortearItemBau(classe, bau.getPosicao(x, y)));
 			bau.getPosicao(x, y).abrirBau();
@@ -118,11 +111,9 @@ public class MapaState extends BasicGameState {
 			}
 		}
 		if (mortos == false){
-			if (!chefao.getPosicao()[0].getClasse().isLife()){
-				MapaState.stopMusica();
-				Creditos.playMusica();
-				sbg.enterState(Jogo.creditos, new FadeOutTransition(), new FadeInTransition());
-			}
+			MapaState.stopMusica();
+			Creditos.playMusica();
+			sbg.enterState(Jogo.creditos, new FadeOutTransition(), new FadeInTransition());
 		}
 	}
 
@@ -141,16 +132,10 @@ public class MapaState extends BasicGameState {
 			sprite = classe.getAnimacao().Right();
 		}
 		
-		boolean mortos = false;
 		// Desenha o inimigo na tela
 		for(int i=0; i < inimigo.getQuantidade(); i++){
-			if(inimigo.getPosicao()[i].getClasse().isLife()){
+			if(inimigo.getPosicao()[i].getClasse().isLife())
 				g.drawImage(inimigo.getPosicao()[i].getClasse().getAnimacao().getImage(), inimigo.getPosicao()[i].getX(), inimigo.getPosicao()[i].getY());
-				mortos = true;
-			}
-		}
-		if (!mortos){
-			g.drawImage(chefao.getPosicao()[0].getImageMenor(), chefao.getPosicao()[0].getX(), chefao.getPosicao()[0].getY());
 		}
 		
 		// Desenha os baús
@@ -180,10 +165,6 @@ public class MapaState extends BasicGameState {
 	
 	public static Classe<?> getEnemy(){
 		return enemy;
-	}
-	
-	public static ChefaoModel getChefao(){
-		return chefao.getPosicao()[0];
 	}
 	
 	public static void playMusica(){

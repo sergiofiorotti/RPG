@@ -24,7 +24,7 @@ final public class Soldier extends Classe<ISoldier>{
 		imagem = new Image("imagens/personagens/SoldierG.png");
 	}
 	
-	private ISoldier[] armas;
+	public ISoldier[] armas;
 	
 	@Override
 	public ISoldier[] getArmas() {

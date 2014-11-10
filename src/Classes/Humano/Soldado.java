@@ -23,7 +23,7 @@ final public class Soldado extends Classe<ISoldado>{
 		imagem = new Image("imagens/personagens/MohamedG.png");
 	}
 	
-	private ISoldado[] armas;
+	public ISoldado[] armas;
 	
 	@Override
 	public ISoldado[] getArmas() {
