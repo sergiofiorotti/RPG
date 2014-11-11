@@ -29,6 +29,7 @@ public class ArmaFogo extends Arma {
 		
 		if (precisao <= this.precisao)
 			return dano;
-		return 0;
+		else
+			return 0;
 	}
 }
