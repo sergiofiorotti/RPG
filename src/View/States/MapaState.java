@@ -92,18 +92,29 @@ public class MapaState extends BasicGameState {
 			sbg.enterState(Jogo.gameOverState, new FadeOutTransition(), new FadeInTransition());
 		}
 		
+		
 		if (inimigo.temInimigo(x, y) && inimigo.getPosicao(x,y).isLife()){
 			enemy = inimigo.getPosicao(x, y);
 			MapaState.stopMusica();
 			LutaState.playMusica();
 			sbg.enterState(Jogo.lutaState, new FadeOutTransition(), new RotateTransition());
+			
 		}
 		
 		if (chefao.temChefao(x, y) && chefao.getPosicao(x, y).isLife()){
-			enemy = chefao.getPosicao()[0].getClasse();
-			MapaState.stopMusica();
-			LutaState.playMusicaChefao();
-			sbg.enterState(Jogo.lutaState, new FadeOutTransition(), new RotateTransition());
+			boolean mortos = false;
+			
+			for(int j=0; j < inimigo.getQuantidade();j++){
+				if(inimigo.getPosicao()[j].getClasse().isLife()){
+					mortos = true;
+				}
+			}
+			if (!mortos){
+				enemy = chefao.getPosicao()[0].getClasse();
+				MapaState.stopMusica();
+				LutaState.playMusicaChefao();
+				sbg.enterState(Jogo.lutaState, new FadeOutTransition(), new RotateTransition());
+			}
 		}
 		
 		if(input.isKeyDown(Input.KEY_A) && !(bau.getPosicao(x, y).bauAberto())){
@@ -142,7 +153,7 @@ public class MapaState extends BasicGameState {
 		}
 		
 		boolean mortos = false;
-		// Desenha o inimigo na tela
+		// Desenha o inimigo e o chefao na tela
 		for(int i=0; i < inimigo.getQuantidade(); i++){
 			if(inimigo.getPosicao()[i].getClasse().isLife()){
 				g.drawImage(inimigo.getPosicao()[i].getClasse().getAnimacao().getImage(), inimigo.getPosicao()[i].getX(), inimigo.getPosicao()[i].getY());
